@@ -2,3 +2,5 @@ build/*
 data/*
 my_data/*
 artifacts/*
+.idea/*
+.idea/.
