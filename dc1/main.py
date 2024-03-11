@@ -19,7 +19,9 @@ import plotext  # type: ignore
 from datetime import datetime
 from pathlib import Path
 from typing import List
+from resnet import  Bottleneck
 
+from resnet import ResNet
 
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
 
@@ -28,7 +30,8 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     test_dataset = ImageDataset(Path("data/X_test.npy"), Path("data/Y_test.npy"))
 
     # Load the Neural Net. NOTE: set number of distinct labels here
-    model = Net(n_classes=6)
+    # model = Net(n_classes=6)
+    model = ResNet(Bottleneck,layer_list=[3,4,6,3],num_classes=6,num_channels=1)
 
     # Initialize optimizer(s) and loss function(s)
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.1)
@@ -42,7 +45,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # the structure of your model (GPU acceleration hides them)!
     # Also make sure you set this to False again for actual model training
     # as training your model with GPU-acceleration (CUDA/MPS) is much faster.
-    DEBUG = False
+    DEBUG = True
 
     # Moving our model to the right device (CUDA will speed training up significantly!)
     if torch.cuda.is_available() and not DEBUG:
