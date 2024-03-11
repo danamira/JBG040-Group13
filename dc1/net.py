@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class Net(nn.Module):
@@ -40,3 +41,4 @@ class Net(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.linear_layers(x)
         return x
+
