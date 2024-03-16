@@ -4,7 +4,7 @@ from net import Net
 from image_dataset import ImageDataset, Path
 from resnet import ResNet
 from resnet import Bottleneck
-from GoogLeNet import GoogLeNet
+# from GoogLeNet import GoogLeNet
 from sklearn.metrics import accuracy_score, f1_score
 
 def load_model_from_path(path_to_model):
@@ -13,7 +13,7 @@ def load_model_from_path(path_to_model):
     :param path_to_model: path to the file in which the weights are saves
     :return: the model with saved weights
     """
-    model = GoogLeNet(6)
+    model = ResNet(Bottleneck,layer_list=[2,2,1,1],num_classes=6,num_channels=1)
     model.load_state_dict(torch.load(path_to_model))
     return model
 
@@ -56,7 +56,7 @@ def use_model(path_to_model: str, path_to_data: str, test_data: bool = True):
 
 
 predictions = use_model(
-    r"model_weights/model_03_11_19_32.txt",
+    r"model_weights/model_03_16_13_46.txt",
     r"data",
     True
 )
@@ -114,8 +114,9 @@ print(f"Overall F1 Score: {overall_f1}")
 
 # ----------------------------------
 
-print(f"Accuracy: {accuracy:.4f}")
-print(f"F1 Score: {f1:.4f}")
+print('Accuracy: ',overall_accuracy)
+# print(f"Accuracy: {accuracy:.4f}")
+# print(f"F1 Score: {f1:.4f}")
 
 
 

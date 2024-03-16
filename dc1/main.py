@@ -33,15 +33,15 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # model = Net(n_classes=6)
     # model = ResNet(Bottleneck,layer_list=[3,4,6,3],num_classes=6,num_channels=1)
     #decreasing num of layers
-    model = ResNet(Bottleneck,layer_list=[2,3,0,0],num_classes=6,num_channels=1)
+    model = ResNet(Bottleneck,layer_list=[2,2,1,1],num_classes=6,num_channels=1)
 
 
     # Initialize optimizer(s) and loss function(s)
     # optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.1)
     #increasing learning rate
-    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.1)
+    # optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.1)
 
-    # optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.01,weight_decay=1e-5)
     loss_function = nn.CrossEntropyLoss()
 
     # fetch epoch and batch count from arguments
