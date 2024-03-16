@@ -111,6 +111,11 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
             plotext.xticks([i for i in range(len(mean_losses_train) + 1)])
 
             plotext.show()
+            if(input('Do you want to cotinue training? ').lower() in ['no','n']):
+                break
+
+
+
 
     # retrieve current time to label artifacts
     now = datetime.now()
