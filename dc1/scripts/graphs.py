@@ -38,3 +38,22 @@ def dist_image_labels():
 
 
 # dist_image_labels()
+
+def train_plot():
+    """Creates a stacked bar chart for the distribution of image labels for the training data"""
+    # Data overview: counts, unique values statistics
+    unique_vals_train, counts_train = np.unique(y_train, return_counts=True)
+    total = np.sum(counts_train)
+    percentages = counts_train / total * 100
+    labels = ['Atelectasis', 'Effusion', 'Infiltration', 'No finding', 'Nodule', 'Pneumothorax']
+    plt.bar(labels, counts_train)
+    for i, percentage in enumerate(percentages):
+        plt.text(i, counts_train[i] + 10, f"{percentage:.2f}%", ha='center')
+
+    plt.ylabel("Count")
+    plt.legend("Training")
+    plt.title("Training Set class imbalance")
+    plt.show()
+
+
+#train_plot()
