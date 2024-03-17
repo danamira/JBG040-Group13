@@ -1,8 +1,8 @@
 # Custom imports
-from batch_sampler import BatchSampler
-from image_dataset import ImageDataset
-from net import Net
-from train_test import train_model, test_model
+from dc1.batch_sampler import BatchSampler
+from dc1.image_dataset import ImageDataset
+from dc1.net import Net
+from dc1.train_test import train_model, test_model
 
 # Torch imports
 import torch
@@ -19,7 +19,44 @@ import plotext  # type: ignore
 from datetime import datetime
 from pathlib import Path
 from typing import List
+import json
+import time
 
+# retrieve current time to label artifacts
+now = datetime.now()
+model_file_name = f"model_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}"
+model_file_r_path = f"model_weights/{model_file_name}.txt"
+
+# Experiment Description
+experiment_type = 'convolutional_kernel_size'
+kernel_size = 11
+description = "Max-pooling kernel: 2, Linear layer to 16 x 7 x 7"
+
+# Aggregation of description
+data = {"model": model_file_name, "kernel_size": kernel_size, "description": description}
+
+
+# ------------------------------------------------------------
+
+def saving_model_info(experiment_type_, data_):
+
+    path = f"results/CNN-template/{experiment_type_}"
+    path_file = f'{path}/experiment_results.json'
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print("The new directory is created!")
+
+        with open(path_file, "w") as write_file:
+            json.dump(data_, write_file, indent=4)
+
+    with open(path_file, 'r') as file:
+        json_data = json.load(file)
+        json_data.append(data)
+
+    # Save the modified JSON back to the file
+    with open(path_file, 'w') as f:
+        json.dump(json_data, f, indent=4)
 
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
 
@@ -102,15 +139,15 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
 
             plotext.show()
 
-    # retrieve current time to label artifacts
-    now = datetime.now()
+
     # check if model_weights/ subdir exists
     if not Path("model_weights/").exists():
         os.mkdir(Path("model_weights/"))
     
     # Saving the model
-    torch.save(model.state_dict(), f"model_weights/model_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}.txt")
-    
+    torch.save(model.state_dict(), model_file_r_path)
+    saving_model_info(experiment_type, data)
+
     # Create plot of losses
     figure(figsize=(9, 10), dpi=80)
     fig, (ax1, ax2) = plt.subplots(2, sharex=True)
