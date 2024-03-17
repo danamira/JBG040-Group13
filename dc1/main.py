@@ -33,36 +33,39 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # model = Net(n_classes=6)
     # model = ResNet(Bottleneck,layer_list=[3,4,6,3],num_classes=6,num_channels=1)
     #decreasing num of layers
-    model = ResNet(Bottleneck,layer_list=[2,2,1,1],num_classes=6,num_channels=1)
+
+    model = ResNet(Bottleneck,layer_list=[1,3,4,2,1],num_classes=6,num_channels=1)
 
 
     # Initialize optimizer(s) and loss function(s)
     # optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.1)
     #increasing learning rate
-    # optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.1)
-
-    optimizer = optim.Adam(model.parameters(), lr=0.01,weight_decay=1e-5)
+    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.1,weight_decay=0.1)
+    # optim.Adagrad(model.parameters(),lr)
+    # optimizer = optim.Adam(model.parameters(), lr=0.001,weight_decay=0.01)
+    # optimizer = optim.Adagrad(model.parameters(),lr=0.001,weight_decay=1e-3,lr_decay=0.00005)
     loss_function = nn.CrossEntropyLoss()
 
     # fetch epoch and batch count from arguments
     n_epochs = args.nb_epochs
     batch_size = args.batch_size
 
-    # IMPORTANT! Set this to True to see actual errors regarding
+    # IMPORTANT! Set this to True to see actual errors regardingy
     # the structure of your model (GPU acceleration hides them)!
     # Also make sure you set this to False again for actual model training
     # as training your model with GPU-acceleration (CUDA/MPS) is much faster.
     DEBUG = True
+    EARLYSTOP = True
 
     # Moving our model to the right device (CUDA will speed training up significantly!)
-    if torch.cuda.is_available() and not DEBUG:
+    if torch.cuda.is_available():
         print("@@@ CUDA device found, enabling CUDA training...")
         device = "cuda"
         model.to(device)
         # Creating a summary of our model and its layers:
         summary(model, (1, 128, 128), device=device)
     elif (
-        torch.backends.mps.is_available() and not DEBUG
+        torch.backends.mps.is_available()
     ):  # PyTorch supports Apple Silicon GPU's from version 1.12
         print("@@@ Apple silicon device enabled, training with Metal backend...")
         device = "mps"
@@ -71,7 +74,6 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
         print("@@@ No GPU boosting device found, training on CPU...")
         device = "cpu"
         # Creating a summary of our model and its layers:
-        summary(model, (1, 128, 128), device=device)
 
     # Lets now train and test our model for multiple epochs:
     train_sampler = BatchSampler(
@@ -111,8 +113,9 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
             plotext.xticks([i for i in range(len(mean_losses_train) + 1)])
 
             plotext.show()
-            if(input('Do you want to cotinue training? ').lower() in ['no','n']):
-                break
+            if EARLYSTOP:
+                if(input('Do you want to cotinue training? ').lower() in ['no','n']):
+                    break
 
 
 
