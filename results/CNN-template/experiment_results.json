@@ -1,0 +1,208 @@
+[
+    {
+        "model": "model_03_16_15_07.txt",
+        "accuracy": 0.2977434679334917,
+        "f1": 0.30025646344862683,
+        "optimizer": "SGD",
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_16_15_43.txt",
+        "accuracy": 0.3195961995249406,
+        "f1": 0.30051909681004285,
+        "optimizer": "Adam",
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_16_15_49.txt",
+        "accuracy": 0.08836104513064133,
+        "f1": 0.03321500447816237,
+        "optimizer": "RMSprop",
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_16_18_22.txt",
+        "accuracy": 0.2684085510688836,
+        "f1": 0.23942666783038374,
+        "optimizer": "SGD",
+        "layers": 3,
+        "convolutional_kernel": 9,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 64,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            9,
+            9
+        ]
+    },
+    {
+        "model": "model_03_16_18_32.txt",
+        "accuracy": 0.24655581947743468,
+        "f1": 0.2223016603091233,
+        "optimizer": "Adam",
+        "layers": 3,
+        "convolutional_kernel": 9,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 64,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            9,
+            9
+        ]
+    },
+    {
+        "model": "model_03_16_18_40.txt",
+        "accuracy": 0.22743467933491687,
+        "f1": 0.19670008152923815,
+        "optimizer": "RMSprop",
+        "layers": 3,
+        "convolutional_kernel": 9,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 64,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            9,
+            9
+        ]
+    },
+    {
+        "model": "model_03_16_18_54.txt",
+        "accuracy": 0.26199524940617575,
+        "f1": 0.24805973997340827,
+        "optimizer": "RMSprop",
+        "layers": 4,
+        "convolutional_kernel": 3,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 128,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            6,
+            6
+        ]
+    },
+    {
+        "model": "model_03_16_22_03.txt",
+        "accuracy": 0.2513064133016627,
+        "f1": 0.22435673570860032,
+        "optimizer": "SGD",
+        "layers": 4,
+        "convolutional_kernel": 3,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 128,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            6,
+            6
+        ]
+    },
+    {
+        "model": "model_03_16_22_26.txt",
+        "accuracy": 0.30843230403800476,
+        "f1": 0.30858260238600244,
+        "optimizer": "Adam",
+        "layers": 4,
+        "convolutional_kernel": 3,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 128,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            6,
+            6
+        ]
+    },
+    {
+        "model": "model_03_16_22_59.txt",
+        "accuracy": 0.11496437054631829,
+        "f1": 0.09189499212627285,
+        "optimizer": "Adam",
+        "epochs": 7,
+        "layers": 4,
+        "convolutional_kernel": 3,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 128,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            6,
+            6
+        ]
+    },
+    {
+        "model": "model_03_17_9_00.txt",
+        "accuracy": 0.32969121140142515,
+        "f1": 0.31955884554838826,
+        "optimizer": "Adam",
+        "early_stopping": "TRUE",
+        "epochs": 10,
+        "layers": 4,
+        "convolutional_kernel": 3,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 128,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            6,
+            6
+        ]
+    },
+    {
+        "model": "model_03_17_9_17.txt",
+        "accuracy": 0.28669833729216154,
+        "f1": 0.282327749552808,
+        "optimizer": "Adam",
+        "early_stopping": "TRUE",
+        "epochs": 10,
+        "layers": 4,
+        "convolutional_kernel": 3,
+        "max_pooling_kernel": [
+            2,
+            2,
+            2
+        ],
+        "num_features_in_first_level": 128,
+        "feature_decrement_step": "Half",
+        "linear_layer": [
+            16,
+            6,
+            6
+        ]
+    }
+]

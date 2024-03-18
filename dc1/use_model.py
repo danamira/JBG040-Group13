@@ -1,19 +1,16 @@
 import torch
 import numpy as np
-from net import Net, Net_experiments
+from net import Net
 from image_dataset import ImageDataset, Path
+# from GoogLeNet import GoogLeNet
 from sklearn.metrics import accuracy_score, f1_score
 import torch.nn as nn
 import os
-from model import  getModel
 import sys
 import json
 
-
-
-
 # ----------------------------------------------------------
-model_file_name = "model_03_18_14_39.txt"
+model_file_name = "model_03_16_16_42.txt"
 # ----------------------------------------------------------
 
 def load_model_from_path(path_to_model: str, model: nn.Module = Net(6)):
@@ -76,7 +73,7 @@ def calculate_metrics():
                 (batch * 1000, (batch + 1) * 1000)
             )[1]
         predictions = use_model(
-            r"model_weights/{}".format(model_file_name),
+            r"../model_weights/{}".format(model_file_name),
             r"data",
             (batch * 1000, (batch + 1) * 1000)
 
@@ -93,9 +90,10 @@ def calculate_metrics():
             (8000, 8420)
         )[1]
     predictions = use_model(
-        r"model_weights/{}".format(model_file_name),
+        r"../model_weights/{}".format(model_file_name),
         r"data",
         (8000, 8420)
+
     )
     for i in range(420):
         true.append(true_vals[i])
@@ -125,7 +123,7 @@ def save_results_to_json(model_file_name_: str):
         os.makedirs(path)
         print("The new directory is created!")
         with open(path_file, "w") as write_file:
-            json.dump([data], write_file, indent=4)
+            json.dump(data, write_file, indent=4)
 
     with open(path_file, 'r') as file:
         json_data = json.load(file)
