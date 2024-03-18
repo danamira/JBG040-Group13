@@ -19,7 +19,7 @@ Each `.py` file contains a different part of the code.
     - Train the neural network and perform evaluation on test set at the end of each epoch.
     - Provide plots about the training losses both during training in the command line and as a png (saved in the `/dc1/artifacts/` subdirectory).
     - Save your trained model's weights in the `/dc1/model_weights/` subdirectory so that you can reload them later.
-    - Save your experiment description, which can be defined at the beginning of the file, in `/dc1/results/CNN-template/optimizers/`.
+    - Save your experiment description, which can be defined at the beginning of the file, in `/dc1/results/<model architecture>/<experiment type>/`.
 
 - To calculate the accuracy, f1 score, precision and recall of the trained model: run `/dc1/use_model.py`. Make sure to specify the following:
     - `model_file_name`: the name of the .txt file with model weights.
