@@ -1,19 +1,28 @@
 import torch
 import numpy as np
-from net import Net
+from net import Net, Net_experiments
 from image_dataset import ImageDataset, Path
-from resnet import ResNet
-from resnet import Bottleneck
-# from GoogLeNet import GoogLeNet
 from sklearn.metrics import accuracy_score, f1_score
+import torch.nn as nn
+import os
+from model import  getModel
+import sys
+import json
 
-def load_model_from_path(path_to_model):
+
+
+
+# ----------------------------------------------------------
+model_file_name = "model_03_18_14_39.txt"
+# ----------------------------------------------------------
+
+def load_model_from_path(path_to_model: str, model: nn.Module = Net(6)):
     """
     Loads the model from the path.
     :param path_to_model: path to the file in which the weights are saves
+    :param model: model for which the weights are supposed to be loaded
     :return: the model with saved weights
     """
-    model = ResNet(Bottleneck,layer_list=[1,3,4,2,1],num_classes=6,num_channels=1)
     model.load_state_dict(torch.load(path_to_model))
     return model
 
@@ -55,69 +64,76 @@ def use_model(path_to_model: str, path_to_data: str, test_data: bool = True):
     return pred
 
 
-predictions = use_model(
-    r"model_weights/model_03_17_15_23.txt",
-    r"data",
-    True
-)
-# true_vals = prepare_dataset_for_forward_pass(r"data")[1]
-# count_correct=0
-# for i in range(len(predictions)):
-#     print(f"True: {true_vals[i]}. Predicted: {np.argmax(predictions[i])}")
-#     if(true_vals[i]==np.argmax(predictions[i])):
-#         count_correct+=1
-#
-# print(count_correct)
-# print(count_correct/len(predictions))
-#
-# # Calculate accuracy and F1 score
-# accuracy = accuracy_score(true_vals, np.argmax(predictions, axis=1))
-# f1 = f1_score(true_vals, np.argmax(predictions, axis=1), average='weighted')
+def calculate_metrics():
+    true = []
+    predicted = []
+    count_correct = 0
+    for batch in range(8):
+        print(f'Batch number: {batch}')
+        true_vals = \
+            prepare_dataset_for_forward_pass(
+                r"data",
+                (batch * 1000, (batch + 1) * 1000)
+            )[1]
+        predictions = use_model(
+            r"model_weights/{}".format(model_file_name),
+            r"data",
+            (batch * 1000, (batch + 1) * 1000)
 
-true_vals = prepare_dataset_for_forward_pass(r"data")[1]
-count_correct = 0
-total_predictions = 0
-correct_per_file = {}  # Dictionary to store correct predictions per file
-total_per_file = {}    # Dictionary to store total predictions per file
+        )
+        for i in range(1000):
+            true.append(true_vals[i])
+            predicted.append(predictions[i])
+            if true_vals[i] == np.argmax(predictions[i]):
+                count_correct += 1
+    print('Batch number: 8')
+    true_vals = \
+        prepare_dataset_for_forward_pass(
+            r"data",
+            (8000, 8420)
+        )[1]
+    predictions = use_model(
+        r"model_weights/{}".format(model_file_name),
+        r"data",
+        (8000, 8420)
+    )
+    for i in range(420):
+        true.append(true_vals[i])
+        predicted.append(predictions[i])
+        if true_vals[i] == np.argmax(predictions[i]):
+            count_correct += 1
 
-for i in range(len(predictions)):
-    true_label = true_vals[i]
-    predicted_label = np.argmax(predictions[i])
-    print(f"True: {true_label}. Predicted: {predicted_label}")
+    accuracy = count_correct / 8420
+    # print(f'Accuracy: {count_correct / 8420}')
 
-    # Update total predictions for the current file
-    if true_label not in total_per_file:
-        total_per_file[true_label] = 1
-    else:
-        total_per_file[true_label] += 1
+    overall_f1 = f1_score(true_vals, np.argmax(predictions, axis=1), average='weighted')
+    # print(f"Overall F1 Score: {overall_f1}")
 
-    # Check correctness and update correct predictions for the current file
-    if true_label == predicted_label:
-        count_correct += 1
-        if true_label not in correct_per_file:
-            correct_per_file[true_label] = 1
-        else:
-            correct_per_file[true_label] += 1
-
-# Calculate and print overall accuracy
-overall_accuracy = count_correct / len(predictions)
-print(f"Overall Accuracy: {overall_accuracy}")
-
-# Calculate and print accuracy for each distinct file
-for label in total_per_file:
-    file_accuracy = correct_per_file.get(label, 0) / total_per_file[label]
-    print(f"File {label} Accuracy: {file_accuracy}")
-
-# Calculate and print overall F1 score
-overall_f1 = f1_score(true_vals, np.argmax(predictions, axis=1), average='weighted')
-print(f"Overall F1 Score: {overall_f1}")
-
-# ----------------------------------
-
-print('Accuracy: ',overall_accuracy)
-# print(f"Accuracy: {accuracy:.4f}")
-# print(f"F1 Score: {f1:.4f}")
+    return accuracy, overall_f1
 
 
+def save_results_to_json(model_file_name_: str):
+    overall_accuracy, overall_f1 = calculate_metrics()
 
-# prepare_dataset_for_forward_pass(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data")
+    data = {"model": model_file_name_, "accuracy": overall_accuracy, "f1": overall_f1}
+
+    path = "../results/CNN-template/experiment_results"
+    path_file = f"{path}/experiment_results.json"
+
+    if not os.path.exists(path):
+        # Create a new directory because it does not exist
+        os.makedirs(path)
+        print("The new directory is created!")
+        with open(path_file, "w") as write_file:
+            json.dump([data], write_file, indent=4)
+
+    with open(path_file, 'r') as file:
+        json_data = json.load(file)
+        json_data.append(data)
+
+    # Save the modified JSON back to the file
+    with open(path_file, 'w') as f:
+        json.dump(json_data, f, indent=4)
+
+
+save_results_to_json(model_file_name)
