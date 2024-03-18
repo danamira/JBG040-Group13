@@ -1,0 +1,103 @@
+[
+    {
+        "model": "model_03_16_15_07",
+        "optimizer": "SGD with lr=0.001, momentum=0.1",
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_16_15_43",
+        "optimizer": "Adam",
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_16_15_49",
+        "optimizer": "Adam",
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_16_18_22",
+        "optimizer": "SGD",
+        "description": "\"layers\": 3, \"convolutional_kernel\": 9, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 64,\"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 9, 9] "
+    },
+    {
+        "model": "model_03_16_18_32",
+        "optimizer": "Adam",
+        "description": "\"layers\": 3, \"convolutional_kernel\": 9, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 64,\"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 9, 9] "
+    },
+    {
+        "model": "model_03_16_18_40",
+        "optimizer": "RMSprop",
+        "description": "\"layers\": 3, \"convolutional_kernel\": 9, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 64,\"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 9, 9] "
+    },
+    {
+        "model": "model_03_16_18_54",
+        "optimizer": "RMSprop",
+        "description": "\"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128,\"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6] "
+    },
+    {
+        "model": "model_03_16_22_03",
+        "optimizer": "SGD",
+        "description": "\"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6] "
+    },
+    {
+        "model": "model_03_16_22_26",
+        "optimizer": "Adam",
+        "description": "\"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6] "
+    },
+    {
+        "model": "model_03_16_22_59",
+        "optimizer": "Adam",
+        "description": "\"epochs\": 7, \"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6] "
+    },
+    {
+        "model": "model_03_17_9_00",
+        "optimizer": "Adam",
+        "description": "\"early_stopping\": \"TRUE\", \"epochs\": 10, \"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6] "
+    },
+    {
+        "model": "model_03_17_9_17",
+        "optimizer": "Adam",
+        "description": "\"early_stopping\": \"TRUE\", \"epochs\": 10, \"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6]"
+    },
+    {
+        "model": "model_03_17_11_38",
+        "optimizer": "Adam",
+        "description": "\"early_stopping\": \"TRUE\", \"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 5, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 2, 2]"
+    },
+    {
+        "model": "model_03_18_12_58",
+        "optimizer": "SGD",
+        "seed": "123",
+        "description": "\"description\": \"Template model\", \"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 4, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": 144 "
+    },
+    {
+        "model": "model_03_18_13_05",
+        "optimizer": "SGD",
+        "seed": "123",
+        "description": "\"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 7, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 1, 1] "
+    },
+    {
+        "model": "model_03_18_13_14",
+        "optimizer": "SGD",
+        "seed": "123",
+        "description": "\"description\": \"Template model\", \"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 4, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": 144"
+    },
+    {
+        "model": "model_03_18_13_27",
+        "seed": "123",
+        "optimizer": "Adam",
+        "description": "\"description\": \"Template model\", \"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 4, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": 144"
+    },
+    {
+        "model": "model_03_18_13_46",
+        "seed": "123",
+        "optimizer": "Adam",
+        "description": "\"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 7, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": 16"
+    },
+    {
+        "model": "model_03_18_14_03",
+        "seed": "123",
+        "optimizer": "Adam",
+        "description": "\"epochs\": 10, \"layers\": 4, \"convolutional_kernel\": 3, \"max_pooling_kernel\": [2, 2, 2], \"num_features_in_first_level\": 128, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 6, 6]"
+    }
+]

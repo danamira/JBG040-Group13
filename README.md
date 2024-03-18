@@ -1,35 +1,42 @@
 # Data-Challenge-1
-This repository contains the template code for the TU/e course JBG040 Data Challenge 1.
+This repository contains the code for the TU/e course JBG040 Data Challenge 1.
 Please read this document carefully as it has been filled out with important information.
+Note: The "Code structure" section has been modified compared to the original README.md.
 
 ## Code structure
-The template code is structured into multiple files, based on their functionality. 
-There are five `.py` files in total, each containing a different part of the code. 
-Feel free to create new files to explore the data or experiment with other ideas.
+The code is structured into multiple files, based on their functionality. 
+Each `.py` file contains a different part of the code. 
 
-- To download the data: run the `ImageDataset.py` file. The script will create a directory `/data/` and download the training and test data with corresponding labels to this directory. 
+- To download the data: run the `ImageDataset.py` file. The script will create a directory `/dc1/data/` and download the training and test data with corresponding labels to this directory. 
     - You will only have to run this script once usually, at the beginning of your project.
 
-- To run the whole training/evaluation pipeline: run `main.py`. This script is prepared to do the followings:
+- To run the whole training/evaluation pipeline: run `/dc1/train.py`. This script is prepared to do the followings:
     - Load your train and test data (Make sure its downloaded beforehand!)
-    - Initializes the neural network as defined in the `Net.py` file.
+    - Initializes the neural network chosen in `model.py`. The structure of the network is defined in the `net.py` file for the template model and in the `resnet.py` for ResNet.
     - Initialize loss functions and optimizers. If you want to change the loss function/optimizer, do it here.
-    - Define number of training epochs and batch size
-    - Check and enable GPU acceleration for training (if you have CUDA or Apple Silicon enabled device)
+    - Define number of training epochs and batch size.
+    - Check and enable GPU acceleration for training (if you have CUDA or Apple Silicon enabled device).
     - Train the neural network and perform evaluation on test set at the end of each epoch.
-    - Provide plots about the training losses both during training in the command line and as a png (saved in the `/artifacts/` subdirectory)
-    - Finally, save your trained model's weights in the `/model_weights/` subdirectory so that you can reload them later.
+    - Provide plots about the training losses both during training in the command line and as a png (saved in the `/dc1/artifacts/` subdirectory).
+    - Save your trained model's weights in the `/dc1/model_weights/` subdirectory so that you can reload them later.
+    - Save your experiment description, which can be defined at the beginning of the file, in `/dc1/results/<model architecture>/<experiment type>/`.
 
-In your project, you are free to modify any parts of this code based on your needs. 
-Note that the Neural Network structure is defined in the `Net.py` file, so if you want to modify the network itself, you can do so in that script.
-The loss functions and optimizers are all defined in `main.py`.
+- To calculate the accuracy, f1 score, precision and recall of the trained model: run `/dc1/use_model.py`. Make sure to specify the following:
+    - `model_file_name`: the name of the .txt file with model weights.
+
+- To use the model for the classification of an image: run `main.py`. Make sure to specify the following:
+    - `modelPath`: the path to the .txt file with model weights.
+    - `image_path`: the path to the image you want to classify - the image should be uploaded in `/input/`. An example image is included.
+
+Note that the Neural Network structure is defined in the `net.py` file, so if you want to modify the network itself, you can do so in that script.
+The loss functions and optimizers are all defined in `/dc1/train.py`.
 
 ## GitHub setup instructions
-1. Click the green *<> Code* button at the upper right corner of the repositiory.
+1. Click the green *<> Code* button at the upper right corner of the repository.
 2. Make sure that the tab *Local* is selected and click *Download ZIP*.
 3. Go to the GitHub homepage and create a new repository.
 4. Make sure that the repository is set to **private** and give it the name **JBG040-GroupXX**, where XX is your group number.
-5. Press *uploading an exisiting file* and upload the extracted files from Data-Challenge-1-template-main.zip to your repository. Note that for the initial commit you should commit directly to the main branch
+5. Press *uploading an existing file* and upload the extracted files from Data-Challenge-1-template-main.zip to your repository. Note that for the initial commit you should commit directly to the main branch
 6. Invite your **group members, tutor and teachers** by going to *Settings > Collaborators > Add people*.
 7. Open PyCharm and make sure that your GitHub account is linked.*
 8. In the welcome screen of PyCharm, click *Get from VCs > GitHub* and select your repository and click on clone.
