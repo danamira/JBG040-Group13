@@ -28,7 +28,7 @@ class Net(nn.Module):
         )
 
         self.linear_layers = nn.Sequential(
-            nn.Linear(144, 256),
+            nn.Linear(16 * 3 * 3, 256),  # Adjust input size based on the output size of the last convolutional layer
             nn.Linear(256, n_classes)
         )
 

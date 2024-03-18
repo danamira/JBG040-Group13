@@ -1,524 +1,126 @@
 [
     {
-        "model": "model_03_16_15_07.txt",
-        "accuracy": 0.2977434679334917,
-        "f1": 0.30025646344862683,
-        "optimizer": "SGD",
-        "description": "Template model"
+
+        "model": "model_03_18_14_39.txt",
+        "accuracy": 0.19334916864608076,
+        "f1": 0.1605048390883895
     },
     {
-        "model": "model_03_16_15_43.txt",
-        "accuracy": 0.3195961995249406,
-        "f1": 0.30051909681004285,
-        "optimizer": "Adam",
-        "description": "Template model"
+        "model": "model_03_18_14_39.txt",
+        "accuracy": 0.19334916864608076,
+        "f1": 0.1605048390883895
     },
     {
-        "model": "model_03_16_15_49.txt",
-        "accuracy": 0.08836104513064133,
-        "f1": 0.03321500447816237,
-        "optimizer": "RMSprop",
-        "description": "Template model"
+        "model": "model_03_18_14_39.txt",
+        "accuracy": 0.19334916864608076,
+        "f1": 0.1605048390883895
     },
     {
-        "model": "model_03_16_18_22.txt",
-        "accuracy": 0.2684085510688836,
-        "f1": 0.23942666783038374,
-        "optimizer": "SGD",
-        "layers": 3,
-        "convolutional_kernel": 9,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 64,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            9,
-            9
-        ]
+        "model": "model_03_18_14_39.txt",
+        "accuracy": 0.19334916864608076,
+        "f1": 0.1605048390883895
+
     },
     {
-        "model": "model_03_16_18_32.txt",
-        "accuracy": 0.24655581947743468,
-        "f1": 0.2223016603091233,
-        "optimizer": "Adam",
-        "layers": 3,
-        "convolutional_kernel": 9,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 64,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            9,
-            9
-        ]
+        "model": "model_03_15_16_51.txt",
+        "accuracy": 0.24726840855106888,
+        "f1": 0.22111228637316355
     },
     {
-        "model": "model_03_16_18_40.txt",
-        "accuracy": 0.22743467933491687,
-        "f1": 0.19670008152923815,
-        "optimizer": "RMSprop",
-        "layers": 3,
-        "convolutional_kernel": 9,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 64,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            9,
-            9
-        ]
+        "model": "model_03_15_17_19.txt",
+        "accuracy": 0.26947743467933494,
+        "f1": 0.24772384864182437
     },
     {
-        "model": "model_03_16_18_54.txt",
-        "accuracy": 0.26199524940617575,
-        "f1": 0.24805973997340827,
-        "optimizer": "RMSprop",
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
-        ]
+        "model": "model_03_15_17_59.txt",
+        "accuracy": 0.282541567695962,
+        "f1": 0.26178890016669637
     },
     {
-        "model": "model_03_16_22_03.txt",
-        "accuracy": 0.2513064133016627,
-        "f1": 0.22435673570860032,
-        "optimizer": "SGD",
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
-        ]
+        "model": "model_03_15_22_42.txt",
+        "accuracy": 0.3013064133016627,
+        "f1": 0.312517142436818
     },
     {
-        "model": "model_03_16_22_26.txt",
-        "accuracy": 0.30843230403800476,
-        "f1": 0.30858260238600244,
-        "optimizer": "Adam",
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
-        ]
+        "model": "model_03_15_22_51.txt",
+        "accuracy": 0.098812351543943,
+        "f1": 0.051086566446492794
     },
     {
-        "model": "model_03_16_22_59.txt",
-        "accuracy": 0.11496437054631829,
-        "f1": 0.09189499212627285,
-        "optimizer": "Adam",
-        "epochs": 7,
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
-        ]
+        "model": "model_03_16_10_26.txt",
+        "accuracy": 0.25653206650831356,
+        "f1": 0.21780298576136206
     },
     {
-        "model": "model_03_17_9_00.txt",
-        "accuracy": 0.32969121140142515,
-        "f1": 0.31955884554838826,
-        "optimizer": "Adam",
-        "early_stopping": "TRUE",
-        "epochs": 10,
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
-        ]
+        "model": "model_03_16_13_04.txt",
+        "accuracy": 0.29168646080760097,
+        "f1": 0.28455507751397036
     },
     {
-        "model": "model_03_17_9_17.txt",
-        "accuracy": 0.28669833729216154,
-        "f1": 0.282327749552808,
-        "optimizer": "Adam",
-        "early_stopping": "TRUE",
-        "epochs": 10,
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
-        ]
+        "model": "model_03_16_13_21.txt",
+        "accuracy": 0.25546318289786224,
+        "f1": 0.19438180673541305
     },
     {
-        "model": "model_03_17_11_38.txt",
-        "accuracy": 0.18491686460807602,
-        "f1": 0.1831428856551243,
-        "optimizer": "Adam",
-        "early_stopping": "TRUE",
-        "epochs": 10,
-        "layers": 3,
-        "convolutional_kernel": 5,
-        "max_pooling_kernel": [
-            4,
-            3,
-            2
-        ],
-        "num_features_in_first_level": 64,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            2,
-            2
-        ]
+        "model": "model_03_16_14_26.txt",
+        "accuracy": 0.24275534441805224,
+        "f1": 0.19758270429257924
     },
     {
-        "model": "model_03_16_15_07.txt",
-        "accuracy": 0.2977434679334917,
-        "f1": 0.30025646344862683,
+        "model": "model_03_16_14_35.txt",
+        "accuracy": 0.26045130641330166,
+        "f1": 0.2529300388052056
+    },
+    {
+        "model": "model_03_16_14_40.txt",
+        "accuracy": 0.22494061757719716,
+        "f1": 0.19561101410673373
+    },
+    {
+        "model": "model_03_16_16_42.txt",
+        "accuracy": 0.25736342042755345,
+        "f1": 0.22584301013625474
+    },
+    {
+        "model": "model_03_15_17_59.txt",
+        "accuracy": 0.282541567695962,
+        "f1": 0.26178890016669637,
         "precision": [
-            0.28378378378378377,
-            0.2916666666666667,
-            0.251063829787234,
-            0.45023696682464454,
-            0.17391304347826086,
-            0.25333333333333335
+            0.24013157894736842,
+            0.27697841726618705,
+            0.21666666666666667,
+            0.5069444444444444,
+            0.15,
+            0.2857142857142857
         ],
         "recall": [
-            0.2709677419354839,
-            0.45323741007194246,
-            0.31216931216931215,
-            0.26912181303116145,
-            0.2222222222222222,
-            0.25675675675675674
-        ],
-        "optimizer": "SGD",
-        "description": "Template model"
-    },
-    {
-        "model": "model_03_16_15_43.txt",
-        "accuracy": 0.3195961995249406,
-        "f1": 0.30051909681004285,
-        "precision": [
-            0.2644628099173554,
-            0.2735294117647059,
-            0.25,
-            0.5234042553191489,
-            0.3333333333333333,
-            0.18
-        ],
-        "recall": [
-            0.4129032258064516,
-            0.6690647482014388,
-            0.08994708994708994,
-            0.34844192634560905,
-            0.05555555555555555,
-            0.24324324324324326
-        ],
-        "optimizer": "Adam",
-        "description": "Template model"
-    },
-    {
-        "model": "model_03_16_22_26.txt",
-        "accuracy": 0.30843230403800476,
-        "f1": 0.30858260238600244,
-        "precision": [
-            0.2794759825327511,
-            0.3203463203463203,
-            0.24870466321243523,
-            0.5384615384615384,
-            0.1506849315068493,
-            0.3125
-        ],
-        "recall": [
-            0.4129032258064516,
-            0.5323741007194245,
-            0.25396825396825395,
-            0.2577903682719547,
-            0.24444444444444444,
-            0.13513513513513514
-        ],
-        "optimizer": "Adam",
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
+            0.47096774193548385,
+            0.5539568345323741,
+            0.2751322751322751,
+            0.20679886685552407,
+            0.03333333333333333,
+            0.05405405405405406
         ]
     },
     {
-        "model": "model_03_17_9_00.txt",
-        "accuracy": 0.32969121140142515,
-        "f1": 0.31955884554838826,
+        "model": "model_03_15_16_51.txt",
+        "accuracy": 0.24726840855106888,
+        "f1": 0.22111228637316355,
         "precision": [
-            0.2638888888888889,
-            0.3660130718954248,
-            0.2412280701754386,
-            0.47388059701492535,
-            0.16666666666666666,
-            0.2631578947368421
+            0.22413793103448276,
+            0.2669172932330827,
+            0.20093457943925233,
+            0.5441176470588235,
+            0.13953488372093023,
+            0.3333333333333333
         ],
         "recall": [
-            0.49032258064516127,
-            0.4028776978417266,
-            0.291005291005291,
-            0.3597733711048159,
-            0.011111111111111112,
-            0.20270270270270271
-        ],
-        "optimizer": "Adam",
-        "early_stopping": "TRUE",
-        "epochs": 10,
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [
-            2,
-            2,
-            2
-        ],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            6,
-            6
+            0.5032258064516129,
+            0.5107913669064749,
+            0.2275132275132275,
+            0.1048158640226629,
+            0.13333333333333333,
+            0.08108108108108109
         ]
-    },
-    {
-        "model": "model_03_18_12_58.txt",
-        "accuracy": 0.252375296912114,
-        "f1": 0.24289046566658548,
-        "precision": [
-            0.22743682310469315,
-            0.2849162011173184,
-            0.26881720430107525,
-            0.5316455696202531,
-            0.16556291390728478,
-            0.1640625
-        ],
-        "recall": [
-            0.4064516129032258,
-            0.3669064748201439,
-            0.26455026455026454,
-            0.11898016997167139,
-            0.2777777777777778,
-            0.28378378378378377
-        ],
-        "seed": 123,
-        "optimizer": "SGD",
-        "description": "Template Model"
-    },
-    {
-        "model": "model_03_18_13_05.txt",
-        "accuracy": 0.2998812351543943,
-        "f1": 0.2934743129230858,
-        "precision": [
-            0.2602040816326531,
-            0.34375,
-            0.2132701421800948,
-            0.5113636363636364,
-            0.25,
-            0.34615384615384615
-        ],
-        "recall": [
-            0.32903225806451614,
-            0.39568345323741005,
-            0.47619047619047616,
-            0.254957507082153,
-            0.05555555555555555,
-            0.12162162162162163
-        ],
-        "seed": 123,
-        "optimizer": "SGD",
-        "epochs": 10,
-        "layers": 3,
-        "convolutional_kernel": 7,
-        "max_pooling_kernel": [
-            4,
-            3,
-            2
-        ],
-        "num_features_in_first_level": 64,
-        "feature_decrement_step": "Half",
-        "linear_layer": [
-            16,
-            1,
-            1
-        ]
-    },
-    {
-        "model": "model_03_18_13_14.txt",
-        "accuracy": 0.2178147268408551,
-        "f1": 0.17845054677836206,
-        "precision": [
-            0.27555555555555555,
-            0.31097560975609756,
-            0.25153374233128833,
-            0.2857142857142857,
-            0.1310344827586207,
-            0.152317880794702
-        ],
-        "recall": [
-            0.4,
-            0.3669064748201439,
-            0.21693121693121692,
-            0.0056657223796034,
-            0.4222222222222222,
-            0.3108108108108108
-        ],
-        "optimizer": "SGD",
-        "seed": 123,
-        "description": "Template model"
-    },
-    {
-        "model": "model_03_18_13_27.txt",
-        "accuracy": 0.21342042755344418,
-        "f1": 0.21450394269922426,
-        "precision": [
-            0.43333333333333335,
-            0.35251798561151076,
-            0.2391304347826087,
-            0.5981308411214953,
-            0.16049382716049382,
-            0.10720268006700168
-        ],
-        "recall": [
-            0.08387096774193549,
-            0.35251798561151076,
-            0.0582010582010582,
-            0.1813031161473088,
-            0.14444444444444443,
-            0.8648648648648649
-        ],
-        "optimizer": "Adam",
-        "seed": 123,
-        "description": "Template model"
-    },
-    {
-        "model": "model_03_18_13_46.txt",
-        "accuracy": 0.23539192399049882,
-        "f1": 0.19568628273735073,
-        "precision": [
-            0.3153846153846154,
-            0.31645569620253167,
-            0.2900763358778626,
-            0.625,
-            0.12389380530973451,
-            0.1554959785522788
-        ],
-        "recall": [
-            0.2645161290322581,
-            0.539568345323741,
-            0.20105820105820105,
-            0.028328611898016998,
-            0.15555555555555556,
-            0.7837837837837838
-        ],
-        "optimizer": "Adam",
-        "seed": "123",
-        "epochs": 10,
-        "layers": 3,
-        "convolutional_kernel": 7,
-        "max_pooling_kernel": [
-            4,
-            3,
-            2
-        ],
-        "num_features_in_first_level": 64,
-        "feature_decrement_step": "Half",
-        "linear_layer": 16
-    },
-    {
-        "model": "model_03_18_14_03.txt",
-        "accuracy": 0.08907363420427554,
-        "f1": 0.042824221195084604,
-        "precision": [
-            0.0,
-            0.28,
-            0.25,
-            0.36363636363636365,
-            0.18181818181818182,
-            0.07725788900979326
-        ],
-        "recall": [
-            0.0,
-            0.050359712230215826,
-            0.010582010582010581,
-            0.0113314447592068,
-            0.06666666666666667,
-            0.9594594594594594
-        ],
-        "seed": "123",
-        "optimizer": "Adam",
-        "epochs": 10,
-        "layers": 4,
-        "convolutional_kernel": 3,
-        "max_pooling_kernel": [2, 2, 2],
-        "num_features_in_first_level": 128,
-        "feature_decrement_step": "Half",
-        "linear_layer": [16, 6, 6]
     }
 ]
