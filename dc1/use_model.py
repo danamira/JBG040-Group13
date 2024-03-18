@@ -2,24 +2,25 @@ import torch
 import numpy as np
 from net import Net
 from image_dataset import ImageDataset, Path
-# from GoogLeNet import GoogLeNet
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import torch.nn as nn
 import os
+from model import getModel
 import sys
 import json
 
 # ----------------------------------------------------------
-model_file_name = "model_03_16_16_42.txt"
+model_file_name = "model_03_18_13_14.txt"
 # ----------------------------------------------------------
 
-def load_model_from_path(path_to_model: str, model: nn.Module = Net(6)):
+def load_model_from_path(path_to_model: str):
     """
     Loads the model from the path.
     :param path_to_model: path to the file in which the weights are saves
     :param model: model for which the weights are supposed to be loaded
     :return: the model with saved weights
     """
+    model = getModel()
     model.load_state_dict(torch.load(path_to_model))
     return model
 
@@ -73,7 +74,7 @@ def calculate_metrics():
                 (batch * 1000, (batch + 1) * 1000)
             )[1]
         predictions = use_model(
-            r"../model_weights/{}".format(model_file_name),
+            r"model_weights/{}".format(model_file_name),
             r"data",
             (batch * 1000, (batch + 1) * 1000)
 
@@ -90,10 +91,9 @@ def calculate_metrics():
             (8000, 8420)
         )[1]
     predictions = use_model(
-        r"../model_weights/{}".format(model_file_name),
+        r"model_weights/{}".format(model_file_name),
         r"data",
         (8000, 8420)
-
     )
     for i in range(420):
         true.append(true_vals[i])
@@ -107,13 +107,20 @@ def calculate_metrics():
     overall_f1 = f1_score(true_vals, np.argmax(predictions, axis=1), average='weighted')
     # print(f"Overall F1 Score: {overall_f1}")
 
-    return accuracy, overall_f1
+    # Calculate precision and recall form confusion matrix
+    cm = confusion_matrix(true_vals, np.argmax(predictions, axis=1))
+    precision = (cm.diagonal() / cm.sum(axis=0)).tolist()
+    recall = (cm.diagonal() / cm.sum(axis=1)).tolist()
+    print(f"Accuracy: {accuracy}, f1: {overall_f1}, precision: {precision}, recall: {recall}")
+
+    return accuracy, overall_f1, precision, recall
 
 
 def save_results_to_json(model_file_name_: str):
-    overall_accuracy, overall_f1 = calculate_metrics()
+    overall_accuracy, overall_f1, precision, recall = calculate_metrics()
 
-    data = {"model": model_file_name_, "accuracy": overall_accuracy, "f1": overall_f1}
+    data = {"model": model_file_name_, "accuracy": overall_accuracy, "f1": overall_f1, "precision": precision,
+            "recall": recall}
 
     path = "../results/CNN-template/experiment_results"
     path_file = f"{path}/experiment_results.json"
@@ -123,7 +130,7 @@ def save_results_to_json(model_file_name_: str):
         os.makedirs(path)
         print("The new directory is created!")
         with open(path_file, "w") as write_file:
-            json.dump(data, write_file, indent=4)
+            json.dump([data], write_file, indent=4)
 
     with open(path_file, 'r') as file:
         json_data = json.load(file)
