@@ -1,0 +1,67 @@
+[
+    {
+        "model": "model_03_15_16_51",
+        "kernel_size": 4,
+        "description": "Template model"
+    },
+    {
+        "model": "model_03_15_17_16",
+        "kernel_size": 3,
+        "description": "Same linear layer as template model"
+    },
+    {
+        "model": "model_03_15_17_19",
+        "kernel_size": 5,
+        "description": "Change linear layer to 16 x 2 x 2"
+    },
+    {
+        "model": "model_03_15_17_59",
+        "kernel_size": 7,
+        "description": "Change linear layer to 16 x 1 x 1"
+    },
+    {
+        "model": "model_03_15_22_42",
+        "kernel_size": 9,
+        "description": "Max-pooling kernel: 2, Linear layer to 16 x 9 x 9"
+    },
+    {
+        "model": "model_03_15_22_51",
+        "kernel_size": 11,
+        "description": "Max-pooling kernel: 2, Linear layer to 16 x 7 x 7"
+    },
+    {
+        "model": "model_03_16_10_26",
+        "layers": 4,
+        "description": "Convolutional kernel size: 3, Max-pooling kernel: 2, Linear layer to 8 x 6 x 6"
+    },
+    {
+        "model": "model_03_16_13_04",
+        "layers": 4,
+        "description": "Convolutional kernel size: 3, Convolutional starting from 128, Max-pooling kernel: 2, Linear layer to 16 x 6 x 6"
+    },
+    {
+        "model": "model_03_16_13_21",
+        "layers": 4,
+        "description": "Convolutional kernel size: 3, Convolutional starting from 256, Max-pooling kernel: 2, Linear layer to 32 x 6 x 6"
+    },
+    {
+        "model": "model_03_16_14_26",
+        "layers": 3,
+        "description": "Convolutional starting from 128, convolutional kernel: 4, , Max-pooling kernel: 4,3,2, Linear layer to 32 x 3 x 3"
+    },
+    {
+        "model": "model_03_16_14_35",
+        "layers": 3,
+        "description": "Convolutional starting from 32, convolutional kernel: 4, Max-pooling kernel: 4,3,2, Linear layer to 32 x 3 x 3"
+    },
+    {
+        "model": "model_03_16_14_40",
+        "kernel_size": 3,
+        "description": "Convolutional starting from 16, convolutional kernel: 4, Max-pooling kernel: 4,3,2, Linear layer to 32 x 3 x 3"
+    },
+    {
+        "model": "model_03_16_16_42",
+        "kernel_size": 5,
+        "description": "Template model, but: Convolutional starting from 16. layer to 4 x 2 x 2"
+    }
+]
