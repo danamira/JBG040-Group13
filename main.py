@@ -8,9 +8,12 @@ import torch
 from dc1.resnet import ResNet, Bottleneck
 import torch.nn.functional as F
 
-trainData = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"))
+# ----------------------------------------------------------
+model_file_name = "model_03_18_21_40.txt"
+# ----------------------------------------------------------
 
-modelPath = "dc1/model_weights/best.txt"
+trainData = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"))
+modelPath = f"dc1/model_weights/{model_file_name}.txt"
 
 image_path = 'input/image.jpg'
 image = Image.open(image_path)

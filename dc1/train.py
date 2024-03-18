@@ -28,20 +28,36 @@ model_file_name = f"model_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}
 model_file_r_path = f"model_weights/{model_file_name}.txt"
 
 # Experiment Description
-experiment_type = 'optimizers'
-optimizer_used = 'Adam'
-description = '"early_stopping": "TRUE", "epochs": 10, "layers": 3, "convolutional_kernel": 5, "max_pooling_kernel": ' \
-              '[4, 3, 2], "num_features_in_first_level": 64, "feature_decrement_step": "Half", "linear_layer": [16, ' \
-              '2, 2]'
+architecture = "add configuration"
+experiment_type = "add configuration"
+optimizer_used = "Adam"  # Change depending on model used
+early_stopping = "add configuration"
+epochs = "add configuration"
+layers = "add configuration"
+convolutional_kernel = "add configuration"
+max_pooling_kernel = "add configuration"
+num_features_in_first_level = "add configuration"
+feature_decrement_factor = "add configuration"
+linear_layer = "add configuration"
+comment = "add configuration"
 
 # Aggregation of description
-data = {"model": model_file_name, "optimizer": optimizer_used, "description": description}
-
+data = {"model": model_file_name,
+        "optimizer": optimizer_used,
+        "early_stopping": early_stopping,
+        "epochs": epochs,
+        "layers": layers,
+        "convolutional_kernel": convolutional_kernel,
+        "max_pooling_kernel": max_pooling_kernel,
+        "num_features_in_first_level": num_features_in_first_level,
+        "feature_decrement_factor": feature_decrement_factor,
+        "linear_layer": linear_layer,
+        "comments": comment}
 
 # ------------------------------------------------------------
 
-def save_experiment(experiment_type_, data_):
-    path = f"results/CNN-template/{experiment_type_}"
+def save_experiment(experiment_type_, data_, architecture_):
+    path = f"results/{architecture_}/{experiment_type_}"
     path_file = f'{path}/experiment_results.json'
     json_data = []
     if not os.path.exists(path):
@@ -155,13 +171,13 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
             plotext.show()
 
     # check if model_weights/ subdir exists
-    if not Path("../model_weights/").exists():
-        os.mkdir(Path("../model_weights/"))
+    if not Path("model_weights/").exists():
+        os.mkdir(Path("model_weights/"))
 
     # Saving the model
-    torch.save(model.state_dict(), f'../{model_file_r_path}')
+    torch.save(model.state_dict(), f'{model_file_r_path}')
     try:
-        save_experiment(experiment_type, data)
+        save_experiment(experiment_type, data, architecture)
     except:
         print('!! Experiment not saved. Please record your experiment manually. !!')
 

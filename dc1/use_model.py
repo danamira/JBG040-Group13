@@ -10,7 +10,7 @@ import sys
 import json
 
 # ----------------------------------------------------------
-model_file_name = "model_03_18_13_14.txt"
+model_file_name = "model_03_18_21_40.txt"
 # ----------------------------------------------------------
 
 def load_model_from_path(path_to_model: str):

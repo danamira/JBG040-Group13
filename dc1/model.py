@@ -3,7 +3,7 @@ from resnet import ResNet,Bottleneck
 
 
 # Determines if you want to train the original legacy model
-USE_LEGACY_MODEL = True
+USE_LEGACY_MODEL = False
 
 
 # ================================================================== #
