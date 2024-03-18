@@ -3,14 +3,14 @@ import numpy as np
 from net import Net
 from image_dataset import ImageDataset, Path
 # from GoogLeNet import GoogLeNet
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import torch.nn as nn
 import os
 import sys
 import json
 
 # ----------------------------------------------------------
-model_file_name = "model_03_16_16_42.txt"
+model_file_name = "model_03_15_16_51.txt"
 # ----------------------------------------------------------
 
 def load_model_from_path(path_to_model: str, model: nn.Module = Net(6)):
@@ -107,13 +107,20 @@ def calculate_metrics():
     overall_f1 = f1_score(true_vals, np.argmax(predictions, axis=1), average='weighted')
     # print(f"Overall F1 Score: {overall_f1}")
 
-    return accuracy, overall_f1
+    # Calculate precision and recall form confusion matrix
+    cm = confusion_matrix(true_vals, np.argmax(predictions, axis=1))
+    precision = (cm.diagonal() / cm.sum(axis=0)).tolist()
+    recall = (cm.diagonal() / cm.sum(axis=1)).tolist()
+    print(f"Accuracy: {accuracy}, f1: {overall_f1}, precision: {precision}, recall: {recall}")
+
+    return accuracy, overall_f1, precision, recall
 
 
 def save_results_to_json(model_file_name_: str):
-    overall_accuracy, overall_f1 = calculate_metrics()
+    overall_accuracy, overall_f1, precision, recall = calculate_metrics()
 
-    data = {"model": model_file_name_, "accuracy": overall_accuracy, "f1": overall_f1}
+    data = {"model": model_file_name_, "accuracy": overall_accuracy, "f1": overall_f1, "precision": precision,
+            "recall": recall}
 
     path = "../results/CNN-template/experiment_results"
     path_file = f"{path}/experiment_results.json"
