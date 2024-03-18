@@ -1,7 +1,0 @@
-[
-    {
-        "model": "model_03_18_21_40",
-        "optimizer": "Adam",
-        "description": "\"early_stopping\": \"TRUE\", \"epochs\": 10, \"layers\": 3, \"convolutional_kernel\": 5, \"max_pooling_kernel\": [4, 3, 2], \"num_features_in_first_level\": 64, \"feature_decrement_step\": \"Half\", \"linear_layer\": [16, 2, 2]"
-    }
-]
