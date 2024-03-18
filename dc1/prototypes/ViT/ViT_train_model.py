@@ -28,11 +28,11 @@ class TrainerViT:
     Trainer for ViT.
     """
     TRAIN_DATA = ImageDataset(
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\X_train.npy"),
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\Y_train.npy"))
+        Path(r"/dc1/data\X_train.npy"),
+        Path(r"/dc1/data\Y_train.npy"))
     TEST_DATA = ImageDataset(
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\X_test.npy"),
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\Y_test.npy"))
+        Path(r"/dc1/data\X_test.npy"),
+        Path(r"/dc1/data\Y_test.npy"))
 
     def __init__(self, model: nn.Module, epochs: int, batch_size: int, optimizer: optim.Optimizer,
                  criterion=nn.CrossEntropyLoss, debug: bool = False, balanced_batches: bool = True):
@@ -133,11 +133,11 @@ class TrainerViT:
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # Load the train and test data set
     train_dataset = ImageDataset(
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\X_train.npy"),
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\Y_train.npy"))
+        Path(r"/dc1/data\X_train.npy"),
+        Path(r"/dc1/data\Y_train.npy"))
     test_dataset = ImageDataset(
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\X_test.npy"),
-        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\Y_test.npy"))
+        Path(r"/dc1/data\X_test.npy"),
+        Path(r"/dc1/data\Y_test.npy"))
 
     # Load the Neural Net. NOTE: set number of distinct labels here
     model = ModifiedViT(

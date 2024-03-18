@@ -1,5 +1,5 @@
 build/*
-data/*
+dc1/data/*
 my_data/*
 artifacts/*
 .idea/*

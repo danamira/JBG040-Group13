@@ -22,7 +22,7 @@ class BatchSampler:
         self.dataset = dataset
         self.balanced = balanced
         if self.balanced:
-            # Counting the ocurrence of the class labels:
+            # Counting the occurrence of the class labels:
             unique, counts = np.unique(self.dataset.targets, return_counts=True)
             indexes = []
             # Sampling an equal amount from each class:
@@ -49,7 +49,7 @@ class BatchSampler:
     def __iter__(self) -> Generator[Tuple[torch.Tensor, torch.Tensor], None, None]:
         remaining = False
         self.shuffle()
-        # Go over the datset in steps of 'self.batch_size':
+        # Go over the dataset in steps of 'self.batch_size':
         for i in range(0, len(self.indexes), self.batch_size):
             # If our current batch is larger than the remaining data, we quit:
             if i + self.batch_size > len(self.indexes):

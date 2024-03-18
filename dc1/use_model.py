@@ -108,13 +108,13 @@ def save_results_in_csv():
         print(batch)
         true_vals = \
             prepare_dataset_for_forward_pass(
-                r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data",
+                r"/dc1/data",
                 (batch * 1000, (batch + 1) * 1000)
             )[1]
         predictions = use_model(
             r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge "
             r"1\JBG040-Group13\dc1\model_weights\model_02_28_22_55.txt",
-            r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data",
+            r"/dc1/data",
             (batch * 1000, (batch + 1) * 1000)
 
         )
@@ -124,13 +124,13 @@ def save_results_in_csv():
     print(8)
     true_vals = \
         prepare_dataset_for_forward_pass(
-            r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data",
+            r"/dc1/data",
             (8000, 8420)
         )[1]
     predictions = use_model(
         r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge "
         r"1\JBG040-Group13\dc1\model_weights\model_02_28_22_55.txt",
-        r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data",
+        r"/dc1/data",
         (8000, 8420)
 
     )

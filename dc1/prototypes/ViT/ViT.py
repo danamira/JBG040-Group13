@@ -193,8 +193,8 @@ class IEViT(ModifiedViT):
 
 
 train_dataset = ImageDataset(
-    Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\X_train.npy"),
-    Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data\Y_train.npy"))
+    Path(r"/dc1/data\X_train.npy"),
+    Path(r"/dc1/data\Y_train.npy"))
 encoder = WholeImageEncoder(768)
 x = train_dataset[0][0]
 print(x)
