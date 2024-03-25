@@ -1,4 +1,4 @@
-from torchvision.models.vision_transformer import VisionTransformer, ConvStemConfig, Encoder
+from torchvision.models.vision_transformer import VisionTransformer, ConvStemConfig, Encoder, EncoderBlock
 from typing import Any, Callable, Dict, List, NamedTuple, Optional
 import torch
 import torch.nn as nn
@@ -127,7 +127,7 @@ class ModifiedViT(nn.Module):
         x = torch.cat([batch_class_token, x], dim=1)
 
         x = self.encoder(x)
-
+        print(x.shape)
         # Classifier "token" as used by standard language architectures
         x = x[:, 0]
 
@@ -136,14 +136,15 @@ class ModifiedViT(nn.Module):
         return x
 
 
-class WholeImageEncoder:
+class FullImageEmbedder(nn.Module):
     """
     Encoder or the whole image, as per https://www.sciencedirect.com/science/article/pii/S0169260722005223
     """
 
     def __init__(self, D, l1_filters=16, l1_kernel=3, l1_stride=1, l2_filters=256, l2_kernel=5, l2_stride=1,
                  l3_kernel=5, l3_stride=1):
-        self.D = D
+        super().__init__()
+        self.D = D  # D is the dimension of the vector
         self.cnn_layers = nn.Sequential(
             # Defining a 2D convolution layer
             nn.Conv2d(1, l1_filters, kernel_size=l1_kernel, stride=l1_stride),
@@ -154,9 +155,56 @@ class WholeImageEncoder:
         x = self.cnn_layers(x)
         # global max pooling
         x = F.max_pool2d(x, kernel_size=x.size()[2:])
-        # ensuring we end up with (1 x D) embedding
-        x = x.view(1, self.D)
+        shape = x.shape
+        # print(f"Initial embedded x shape: {shape}")
+        x = x.view(shape[0], shape[2], shape[1])
         return x
+
+
+class IEncoder(nn.Module):
+    """
+    Encoder used for IEViT.
+    """
+
+    def __init__(
+            self,
+            seq_length: int,
+            num_layers: int,
+            num_heads: int,
+            hidden_dim: int,
+            mlp_dim: int,
+            dropout: float = 0,
+            attention_dropout: float = 0,
+            norm_layer: Callable[..., torch.nn.Module] = partial(nn.LayerNorm, eps=1e-6)):
+        super().__init__()
+        self.num_layers = num_layers
+
+        self.pos_embedding = nn.Parameter(torch.empty(1, seq_length, hidden_dim).normal_(std=0.02))  # from BERT
+        self.dropout = nn.Dropout(dropout)
+
+        layers: List = []
+        for i in range(num_layers):
+            layers.append(EncoderBlock(
+                num_heads,
+                hidden_dim,
+                mlp_dim,
+                dropout,
+                attention_dropout,
+                norm_layer,
+            ))
+        self.layers = nn.ModuleList(layers)
+        self.ln = norm_layer(hidden_dim)
+
+    def forward(self, x: torch.Tensor, full_image_embedding: torch.Tensor):
+        # print(f"positional embedding shape: {self.pos_embedding.shape} ")
+        x = x + self.pos_embedding
+        # print(f"x shape after positional embedding is added: {x.shape}")
+        for encoder_block in self.layers:
+            x = encoder_block(self.dropout(x))
+            # print(f"x shape encoder_block pass: {x.shape}")
+            x = torch.cat((x, full_image_embedding),1)
+            # print(f"x shape concat with full embedding: {x.shape}")
+        return self.ln(x)
 
 
 class IEViT(ModifiedViT):
@@ -165,7 +213,7 @@ class IEViT(ModifiedViT):
     """
 
     def __init__(self,
-                 encoder: WholeImageEncoder,
+                 full_embedding: FullImageEmbedder,
                  image_size: int,
                  patch_size: int,
                  num_layers: int,
@@ -174,7 +222,7 @@ class IEViT(ModifiedViT):
                  mlp_dim: int,
                  dropout: float = 0.0,
                  attention_dropout: float = 0.0,
-                 num_classes: int = 1000,
+                 num_classes: int = 6,
                  representation_size: Optional[int] = None,
                  norm_layer: Callable[..., torch.nn.Module] = partial(nn.LayerNorm, eps=1e-6)):
         super().__init__(
@@ -189,17 +237,52 @@ class IEViT(ModifiedViT):
             num_classes,
             representation_size,
             norm_layer)
-        self.encoder = encoder
+
+        self.full_embedding = full_embedding
+        self.encoder = IEncoder(
+            self.seq_length,
+            num_layers,
+            num_heads,
+            hidden_dim,
+            mlp_dim,
+            dropout,
+            attention_dropout,
+            norm_layer
+        )
+
+    def forward(self, x: torch.Tensor):
+        # Extract full image embedding
+        full_image_emb = self.full_embedding(x)
+        # print(f"Concurrent embedded x shape: {full_image_emb.shape}")
+        # Reshape and permute the input tensor
+        x = self._process_input(x)
+        n = x.shape[0]
+        # print(f"x shape after process_input: {x.shape}")
+        # Expand the class token to the full batch
+        batch_class_token = self.class_token.expand(n, -1, -1)
+        x = torch.cat([batch_class_token, x], dim=1)
+        # print(f"x shape after tokenization (passed to the encoder): {x.shape}")
+        x = self.encoder(x, full_image_emb)
+
+        # Classifier "token" as used by standard language architectures
+        x = x[:, 0]
+
+        x = self.heads(x)
+
+        return x
 
 
-train_dataset = ImageDataset(
-    Path(r"/dc1/data\X_train.npy"),
-    Path(r"/dc1/data\Y_train.npy"))
-encoder = WholeImageEncoder(768)
-x = train_dataset[0][0]
-print(x)
-print(encoder.forward(x))
-# save_predictions_in_csv( model=ModifiedViT( image_size=128, patch_size=16, num_layers=12, hidden_dim=768,
-# mlp_dim=3072, num_heads=12, num_classes=6 ), weights_path=r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge
-# 1\JBG040-Group13\dc1\prototypes\ViT\model_weights\model_03_10_18_04.txt",
-# path_to_data=r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\data" )
+def IEViT_tester():
+    train_dataset = ImageDataset(
+        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\dc1\data\X_train.npy"),
+        Path(r"C:\Users\User\Desktop\University\Y2\Q3\Data Challenge 1\JBG040-Group13\dc1\data\Y_train.npy"))
+    x = train_dataset[0:2][0]
+
+    embedder = FullImageEmbedder(768)
+    ie = IEViT(image_size=128, patch_size=16, num_layers=12, hidden_dim=768, mlp_dim=3072, num_heads=12,
+               full_embedding=embedder,
+               num_classes=6)
+    print(ie(x).shape)
+    # print(ie(x.view(-1, 1, 128, 128)).shape)
+
+# IEViT_tester()

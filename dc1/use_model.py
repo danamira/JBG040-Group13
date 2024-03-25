@@ -94,11 +94,11 @@ def save_predictions_in_csv(weights_path:str, path_to_data: str, model: nn.Modul
 
     pred_dataframe = pd.DataFrame({'true': true, 'pred': predicted})
 
-    def clean_csv(x):
-        return int(re.search(r'\d+', x).group())
-
-    pred_dataframe = pred_dataframe[['true', 'pred']].map(clean_csv)
+    # pred_dataframe = pred_dataframe[['true', 'pred']].map(clean_csv)
     pred_dataframe.to_csv('TruePred.csv')
+
+def clean_csv(x):
+    return int(re.search(r'\d+', x).group())
 
 
 def save_results_in_csv():
