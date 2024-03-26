@@ -59,12 +59,10 @@ normalized_matrix = matrix_sum_normalize(cm)
 normalised_weights = matrix_sum_normalize(severity_weights)
 
 # Computing the finalized matrix where we multiply it with the weights
-weighted_conf_matrix_norm = normalized_matrix * normalised_weights
-weighted_conf_matrix = cm * severity_weights
+weighted_conf_matrix = normalized_matrix * severity_weights
 print(weighted_conf_matrix)
 
-# Computing norm of weighted_conf_matrix_norm
-norm_matrix = matrix_sum_normalize(weighted_conf_matrix_norm)
+
 
 # Computing precision and recall from cm
 precision = cm.diagonal() / cm.sum(axis=0)
@@ -83,25 +81,12 @@ micro_f1 = f1_score(true, pred, average='micro')
 # Compute macro-average F1 score
 macro_f1 = f1_score(true, pred, average='macro')
 
-# Normalize custom metric
-cust_metric_norm = weighted_conf_matrix/weighted_conf_matrix.sum()
-print(cust_metric_norm)
-# MinMax  normalizing
-cust_metric_norm_minmax = min_max_normalize(weighted_conf_matrix)
-
 
 # Compute the custom score
-score_custom = cust_metric_norm.sum()
-score_custom_unnorm = weighted_conf_matrix.sum()
-norm_before_compute = weighted_conf_matrix_norm.sum()
-normalised_twice = norm_matrix.sum()
-minmax_score = cust_metric_norm_minmax.sum()
+score = weighted_conf_matrix.sum()
+
 
 print("Class-wise F1 Score:", f1)
 print("Micro-average F1 Score:", micro_f1)
 print("Macro-average F1 Score:", macro_f1)
-print("Custom score:", score_custom)
-print("Unnorm metric:", score_custom_unnorm)
-print("Norm before compute:", norm_before_compute)
-print("Normalised twice:", normalised_twice)
-print("MinMax norm version:", minmax_score)
+print("Custom score:",score)
