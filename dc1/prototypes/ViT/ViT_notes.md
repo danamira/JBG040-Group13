@@ -8,11 +8,11 @@
 
 # Implementation
 ## Defining hyperparameters
-- learning_rate: learnign rate for the training
-- num_classes: how many classes to classify into
-- patch_size: how big should the patches be?
-- img_size: how big is the image?
-- in_channels: ??? (maybe channles of the image?)
+- learning_rate: learning rate for the training
+- num_classes: how many classes to classify into: 6
+- patch_size: how big should the patches be: original paper-> 16
+- img_size: how big is the image? - we can change the image size to whatever we wantL: ex 224
+- in_channels: number of channels of the image: 1 for us
 - num_heads: how many attention heads to use
 - dropout: dropout for the training
 - hidden_dimension: hidden dimension of the MLP part of the Encoder. In paper, 768, 1024, 1280 are all used
