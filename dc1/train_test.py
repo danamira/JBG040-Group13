@@ -12,29 +12,27 @@ def train_model(
         loss_function: Callable[..., torch.Tensor],
         device: str,
 ) -> List[torch.Tensor]:
-    # Lets keep track of all the losses:
     losses = []
-    # Put the model in train mode:
     model.train()
-    # Feed all the batches one by one:
     for batch in tqdm(train_sampler):
-        # Get a batch:
         x, y = batch
-        # Making sure our samples are stored on the same device as our model:
         x, y = x.to(device), y.to(device)
-        # Get predictions:
-        predictions = model.forward(x)
+        output = model(x)  # Using model directly calls forward
+
+        # Check if the model's output is a tuple (for models returning feature maps)
+        # and unpack accordingly
+        if isinstance(output, tuple):
+            predictions, _ = output
+        else:
+            predictions = output
+
         loss = loss_function(predictions, y)
         losses.append(loss)
-        # We first need to make sure we reset our optimizer at the start.
-        # We want to learn from each batch seperately,
-        # not from the entire dataset at once.
         optimizer.zero_grad()
-        # We now backpropagate our loss through our model:
         loss.backward()
-        # We then make the optimizer take a step in the right direction.
         optimizer.step()
     return losses
+
 
 
 def test_model(
@@ -43,16 +41,19 @@ def test_model(
         loss_function: Callable[..., torch.Tensor],
         device: str,
 ) -> List[torch.Tensor]:
-    # Setting the model to evaluation mode:
-    model.eval()
     losses = []
-    # We need to make sure we do not update our model based on the test data:
+    model.eval()
     with torch.no_grad():
         for (x, y) in tqdm(test_sampler):
-            # Making sure our samples are stored on the same device as our model:
-            x = x.to(device)
-            y = y.to(device)
-            prediction = model.forward(x)
+            x, y = x.to(device), y.to(device)
+            output = model(x)
+
+            # Similarly, handle the tuple output for models that return additional data
+            if isinstance(output, tuple):
+                prediction, _ = output
+            else:
+                prediction = output
+
             loss = loss_function(prediction, y)
             losses.append(loss)
     return losses

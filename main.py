@@ -1,10 +1,19 @@
+import torch
+import numpy as np
+import random
+
+# Set a seed value at the very beginning of your script
+seed_value= 42
+random.seed(seed_value)
+np.random.seed(seed_value)
+torch.manual_seed(seed_value)
+
+# Continue with your script as before
 from dc1.image_dataset import ImageDataset
 from pathlib import Path
 import matplotlib.pyplot as plt
 from PIL import Image
 import torchvision.transforms as transforms
-import torch
-# from dc1.model import getModel,getModelFileName
 from dc1.resnet import ResNet, Bottleneck
 import torch.nn.functional as F
 
@@ -26,7 +35,7 @@ transformations = transforms.Compose([
 ])
 
 model = ResNet(Bottleneck, layer_list=[1, 3, 4, 2, 1], num_classes=6, num_channels=1)
-model.load_state_dict(torch.load(modelPath))
+model.load_state_dict(torch.load(modelPath, map_location=torch.device('cpu')))
 image_transformed = transformations(image)
 
 model.eval()

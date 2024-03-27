@@ -16,4 +16,3 @@ while not input('continue? ') in ['n''no']:
     plt.imshow(x[0].permute(1,2,0),cmap='gray')
     plt.show()
     i+=1
-

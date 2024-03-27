@@ -1,4 +1,7 @@
 # Custom imports
+import random
+import numpy as np
+
 from dc1.batch_sampler import BatchSampler
 from dc1.image_dataset import ImageDataset
 from dc1.net import Net, Net_experiments, EarlyStopper
@@ -78,6 +81,11 @@ def save_experiment(experiment_type_, data_, architecture_):
 
 
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
+    seed_value = 42
+    torch.manual_seed(seed_value)
+    np.random.seed(seed_value)
+    random.seed(seed_value)
+
     # Load the train and test data set
     train_dataset = ImageDataset(Path("data/X_train.npy"), Path("data/Y_train.npy"))
     test_dataset = ImageDataset(Path("data/X_test.npy"), Path("data/Y_test.npy"))

@@ -24,3 +24,4 @@ urllib3==1.26.18
 torchvision==0.14
 seaborn == 0.13.2
 rich == 13.7.1
+opencv-python == 4.9.0.80

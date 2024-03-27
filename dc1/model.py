@@ -1,5 +1,5 @@
 from net import Net
-from resnet import ResNet,Bottleneck
+from resnetCAM import ResNetCAM, Bottleneck
 
 
 # Determines if you want to train the original legacy model
@@ -12,7 +12,7 @@ USE_LEGACY_MODEL = False
 def getModel():
     if USE_LEGACY_MODEL:
         return Net(n_classes=6)
-    return ResNet(Bottleneck,layer_list=[1,3,4,2,1],num_classes=6,num_channels=1)
+    return ResNetCAM(Bottleneck, num_classes=6, num_channels=1)
 
 
 def getModelFileName():
