@@ -79,8 +79,12 @@ def save_experiment(experiment_type_, data_, architecture_):
 
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # Load the train and test data set
-    train_dataset = ImageDataset(Path("data/X_train.npy"), Path("data/Y_train.npy"))
-    test_dataset = ImageDataset(Path("data/X_test.npy"), Path("data/Y_test.npy"))
+    train_dataset = ImageDataset(Path("data/preprocessed/remove_outliers/X_train.npy"), Path("data/preprocessed"
+                                                                                             "/remove_outliers"
+                                                                                             "/Y_train.npy"))
+    test_dataset = ImageDataset(Path("data/preprocessed/remove_outliers/X_test.npy"), Path("data/preprocessed"
+                                                                                           "/remove_outliers"
+                                                                                           "/Y_test.npy"))
     # Get the value of lambda from arguments
     weight_decay = args.weight_decay
 

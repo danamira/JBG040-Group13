@@ -10,8 +10,9 @@ import sys
 import json
 
 # ----------------------------------------------------------
-model_file_name = "model_03_18_21_40.txt"
+model_file_name = "model_03_26_15_11.txt"
 # ----------------------------------------------------------
+
 
 def load_model_from_path(path_to_model: str):
     """
@@ -33,11 +34,11 @@ def prepare_dataset_for_forward_pass(path_to_data: str, test_data: bool = True):
     :return: Data that you can pass forward in the model
     """
     train_dataset = ImageDataset(
-        Path(path_to_data + r"/X_train.npy"),
-        Path(path_to_data + r"/Y_train.npy"))
+        Path(path_to_data + r"/preprocessed/remove_outliers/X_train.npy"),
+        Path(path_to_data + r"/preprocessed/remove_outliers/Y_train.npy"))
     test_dataset = ImageDataset(
-        Path(path_to_data + r"/X_test.npy"),
-        Path(path_to_data + r"/Y_test.npy"))
+        Path(path_to_data + r"/preprocessed/remove_outliers/X_test.npy"),
+        Path(path_to_data + r"/preprocessed/remove_outliers/Y_test.npy"))
     if not test_data:
         X = train_dataset[:][0]
         Y = train_dataset[:][1]

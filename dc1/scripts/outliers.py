@@ -4,11 +4,13 @@ import os
 import sys
 from pathlib import Path
 from sklearn.neighbors import LocalOutlierFactor
+import cv2
 
 # Change to parent directory
 path = Path.cwd()
 os.chdir(path.parent)
-import cv2
+
+print(Path.cwd())
 
 # In[ ]:
 
@@ -18,11 +20,18 @@ X_test = np.load('data/X_test.npy')
 y_train = np.load('data/Y_train.npy')
 y_test = np.load('data/Y_test.npy')
 
-print(X_train.shape)
+
+def show_image(image):
+    plt.imshow(image)
+    plt.show()
 
 
-# Reshape the images if needed
-# images = images.reshape(images.shape[0], -1)
+def show_images_index(ind_list, data):
+    for i, image in enumerate(data):
+        image = image[0]
+        if i in ind_list:
+            show_image(image)
+
 
 def find_outliers(data):
     images = list()
@@ -47,8 +56,21 @@ def find_outliers(data):
     return outliers
 
 
-outliers_train = find_outliers(X_train)
-outliers_test = find_outliers(X_test)
+def remove_outliers_save(data, outliers_list, filename):
+    np.save(f'data/preprocessed/remove_outliers/{filename}.npy', np.delete(data, outliers_list, axis=0))
 
-print(outliers_train)
-print(outliers_test)
+
+# ----------------------- #
+# Run the functions above #
+# ----------------------- #
+train_outliers = find_outliers(X_train)
+test_outliers = find_outliers(X_test)
+
+remove_outliers_save(y_train, train_outliers, 'Y_train')
+remove_outliers_save(y_test, test_outliers, 'Y_test')
+
+remove_outliers_save(X_train, train_outliers, 'X_train')
+remove_outliers_save(X_test, test_outliers, 'X_test')
+
+
+
