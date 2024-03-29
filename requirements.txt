@@ -21,6 +21,9 @@ types-requests==2.28.11.7
 types-setuptools==65.6.0.2
 types-tqdm==4.64.1
 urllib3==1.26.18
-torchvision==0.14
+torchvision~=0.16.1
 seaborn == 0.13.2
 rich == 13.7.1
+scikit-learn~=1.4.1.post1
+pandas~=2.2.1
+setuptools~=69.0.3

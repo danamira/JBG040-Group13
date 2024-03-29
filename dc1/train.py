@@ -3,6 +3,7 @@ from dc1.batch_sampler import BatchSampler
 from dc1.image_dataset import ImageDataset
 from dc1.net import Net, Net_experiments, EarlyStopper
 from dc1.train_test import train_model, test_model
+from dc1.configurations import sampling_method, data_paths, data_path
 
 # Torch imports
 import torch
@@ -79,12 +80,13 @@ def save_experiment(experiment_type_, data_, architecture_):
 
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # Load the train and test data set
-    train_dataset = ImageDataset(Path("data/preprocessed/remove_outliers/X_train.npy"), Path("data/preprocessed"
-                                                                                             "/remove_outliers"
-                                                                                             "/Y_train.npy"))
-    test_dataset = ImageDataset(Path("data/preprocessed/remove_outliers/X_test.npy"), Path("data/preprocessed"
-                                                                                           "/remove_outliers"
-                                                                                           "/Y_test.npy"))
+    train_dataset = ImageDataset(Path(f"data/{data_paths[data_path]}/X_train.npy"),
+                                 Path(f"data/{data_paths[data_path]}/Y_train.npy"),
+                                 sampling_method, train=True)
+    test_dataset = ImageDataset(Path(f"data/{data_paths[data_path]}/X_test.npy"),
+                                Path(f"data/{data_paths[data_path]}/Y_test.npy"),
+                                sampling_method, train=True)
+
     # Get the value of lambda from arguments
     weight_decay = args.weight_decay
 

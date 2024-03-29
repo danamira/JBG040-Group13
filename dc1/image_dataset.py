@@ -7,6 +7,8 @@ from typing import Tuple
 from pathlib import Path
 import os
 
+from dc1.configurations import sampling_methods
+
 
 class ImageDataset:
     """
@@ -16,11 +18,14 @@ class ImageDataset:
     to pass the data through the neural network and apply weights).
     """
 
-    def __init__(self, x: Path, y: Path) -> None:
+    def __init__(self, x: Path, y: Path, sampling_method: str, train: bool) -> None:
         # Target labels
-        self.targets = ImageDataset.load_numpy_arr_from_npy(y)
-        # Images
-        self.imgs = ImageDataset.load_numpy_arr_from_npy(x)
+        if train:
+            self.imgs, self.targets = sampling_methods[sampling_method](ImageDataset.load_numpy_arr_from_npy(y),
+                                                                        ImageDataset.load_numpy_arr_from_npy(x))
+        else:
+            self.targets = ImageDataset.load_numpy_arr_from_npy(y)
+            self.imgs = ImageDataset.load_numpy_arr_from_npy(x)
 
     def __len__(self) -> int:
         return len(self.targets)
