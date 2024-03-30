@@ -46,7 +46,7 @@ def smote_sampling(y_train, X_train):
 
 def smoteenn_sampling(y_train, X_train):
     """Combines over- and under-sampling using SMOTE."""
-    smote_enn = SMOTEENN(random_state=42)
+    smote_enn = SMOTEEgitNN(random_state=42)
     X_resampled, y_resampled = smote_enn.fit_resample(X_train.reshape(X_train.shape[0], -1), y_train)
     # Reshape the resampled data back to the original format
     X_resampled = X_resampled.reshape(-1, *X_train.shape[1:])
