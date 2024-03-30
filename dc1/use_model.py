@@ -6,11 +6,22 @@ from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import torch.nn as nn
 import os
 from model import getModel
+from assesment.custom_metric import custom_metric, matrix_sum_normalize
 import sys
 import json
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# initialize seeds
+torch.manual_seed(42)
+random.seed(42)
+np.random.seed(42)
+torch.use_deterministic_algorithms(mode=True, warn_only=True)
 
 # ----------------------------------------------------------
-model_file_name = "model_03_18_21_40.txt"
+model_file_name = "model_03_30_17_44.txt"
 # ----------------------------------------------------------
 
 def load_model_from_path(path_to_model: str):
@@ -67,7 +78,7 @@ def calculate_metrics():
     predicted = []
     count_correct = 0
     for batch in range(8):
-        print(f'Batch number: {batch}')
+        print(f'Batch number: {batch}/8')
         true_vals = \
             prepare_dataset_for_forward_pass(
                 r"data",
@@ -84,7 +95,7 @@ def calculate_metrics():
             predicted.append(predictions[i])
             if true_vals[i] == np.argmax(predictions[i]):
                 count_correct += 1
-    print('Batch number: 8')
+    print('Batch number: 8/8')
     true_vals = \
         prepare_dataset_for_forward_pass(
             r"data",
@@ -109,32 +120,52 @@ def calculate_metrics():
 
     # Calculate precision and recall form confusion matrix
     cm = confusion_matrix(true_vals, np.argmax(predictions, axis=1))
+    print(f"Confusion matrix: {cm}")
     precision = (cm.diagonal() / cm.sum(axis=0)).tolist()
     recall = (cm.diagonal() / cm.sum(axis=1)).tolist()
     print(f"Accuracy: {accuracy}, f1: {overall_f1}, precision: {precision}, recall: {recall}")
 
-    return accuracy, overall_f1, precision, recall
+    # Compute custom metric
+    custom_score = custom_metric(cm)
+    print(f"Custom score: {custom_score}")
+
+    # Save confusion matrix
+    class_labels = ['Atelectasis', 'Effusion', 'Infiltration', 'No finding', 'Nodule', 'Pneumothorax']
+    plt.figure(figsize=(12, 10))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", annot_kws={"size": 16}, xticklabels=class_labels,
+                yticklabels=class_labels, cbar_kws={"label": "Scale"})
+    plt.xlabel('Predicted Label')
+    plt.ylabel('True Label')
+    plt.title('Confusion Matrix', weight='bold', size=16)
+    plt.savefig('Confusion matrix of best resnet')
+    plt.show();
+
+    return accuracy, overall_f1, precision, recall, custom_score
 
 
 def save_results_to_json(model_file_name_: str):
-    overall_accuracy, overall_f1, precision, recall = calculate_metrics()
+    overall_accuracy, overall_f1, precision, recall, custom_score = calculate_metrics()
 
     data = {"model": model_file_name_, "accuracy": overall_accuracy, "f1": overall_f1, "precision": precision,
-            "recall": recall}
+            "recall": recall, "custom score": custom_score}
 
-    path = "../results/CNN-template/experiment_results"
+    path = "results/resnet/experiment_results_metrics"
     path_file = f"{path}/experiment_results.json"
+    json_data = []
 
     if not os.path.exists(path):
         # Create a new directory because it does not exist
         os.makedirs(path)
         print("The new directory is created!")
-        with open(path_file, "w") as write_file:
-            json.dump([data], write_file, indent=4)
 
-    with open(path_file, 'r') as file:
-        json_data = json.load(file)
-        json_data.append(data)
+        with open(path_file, "w") as write_file:
+            json_data.append(data)
+            json.dump(json_data, write_file, indent=4)
+
+    else:
+        with open(path_file, 'r') as file:
+            json_data = json.load(file)
+            json_data.append(data)
 
     # Save the modified JSON back to the file
     with open(path_file, 'w') as f:
