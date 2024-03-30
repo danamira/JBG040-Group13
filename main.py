@@ -1,44 +1,67 @@
-from dc1.image_dataset import ImageDataset
-from pathlib import Path
-import matplotlib.pyplot as plt
-from PIL import Image
-import torchvision.transforms as transforms
-import torch
-# from dc1.model import getModel,getModelFileName
-from dc1.resnet import ResNet, Bottleneck
-import torch.nn.functional as F
+from optimization.image_editor import ImageEditor
+from optimization.arguments import get_arguments
+import os
 
-# ----------------------------------------------------------
-model_file_name = "model_03_18_21_40.txt"
-# ----------------------------------------------------------
 
-trainData = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"))
-modelPath = f"dc1/model_weights/{model_file_name}.txt"
+if __name__ == "__main__":
+    args = get_arguments()
+    # Loop through images in input directory
+    """
+    Script: 
+    python /root/diffusion-gen/main.py \
+    --cluster_path /root/diffusion-gen/clusters.pkl \
+    --output_path /root/diffusion-gen/outputs \
+    --model_path /root/diffusion-gen/logs/256models/model110000.pt \
+    --diff_iter 100 \
+    --timestep_respacing 200 \
+    --skip_timesteps 80 \
+    --model_output_size 256 \
+    --num_samples 1 \
+    --batch_size 1 \
+    --use_noise_aug_all --use_colormatch \
+    -fti -sty -inp
 
-image_path = 'input/image.jpg'
-image = Image.open(image_path)
+    python /root/diffusion-gen/main.py \
+    --data_dir /root/diffusion-gen/guided_diffusion/segmented-images/masked-images \
+    --output_path /root/diffusion-gen/outputs \
+    --model_path /root/diffusion-gen/logs/256models/model200000.pt \
+    --diff_iter 100 \
+    --timestep_respacing 200 \
+    --skip_timesteps 80 \
+    --model_output_size 256 \
+    --num_samples 1 \
+    --batch_size 5 \
+    --use_noise_aug_all --use_colormatch \
+    -fti -sty -inp -spi
 
-# Define the transformations: resize, convert to grayscale, and then convert to a tensor
-transformations = transforms.Compose([
-    transforms.Resize((128, 128)),  # Replace desired_height and desired_width with your values
-    transforms.Grayscale(num_output_channels=1),  # Convert image to grayscale
-    transforms.ToTensor(),  # Convert to tensor
-])
-
-model = ResNet(Bottleneck, layer_list=[1, 3, 4, 2, 1], num_classes=6, num_channels=1)
-model.load_state_dict(torch.load(modelPath))
-image_transformed = transformations(image)
-
-model.eval()
-with torch.no_grad():
-    outputs = (model(image_transformed.unsqueeze(0)))
-
-outputs = F.softmax(outputs, dim=-1).tolist()[0]
-
-diseases = ['Atelectasis', 'Effusion', 'Infiltration', 'No finding', 'Nodule', 'Pneumothorax']
-
-result = {diseases[i]: round(outputs[i], 3) for i in range(6)}
-
-print("Probabilities:", result)
-
-print("Diagnosis:", max(result, key=result.get))
+    python main.py \
+    --cluster_path ./clusters.pkl \
+    --output_path ./outputs \
+    --model_path ./logs/256models/cluster_8_model110000.pt \
+    --diff_iter 100 \
+    --timestep_respacing 200 \
+    --skip_timesteps 80 \
+    --model_output_size 256 \
+    --num_samples 5 \
+    --batch_size 3 \
+    --use_noise_aug_all --use_colormatch \
+    -fti -sty -inp
+    """
+    if args.cluster_path:
+        # expect model_path to be path/to/cluster_model/modelNNNNNN.pt
+        base_model_path = args.model_path
+        for i in range(args.start_index, 20):
+            split = base_model_path.split("/")
+            filename = f"cluster_{i}_" + split[-1]
+            split[-1] = filename
+            path = "/".join(split)
+            # Check if file exists
+            if not os.path.isfile(path):
+                print(f"Cluster {i} does not exist")
+                continue
+            args.model_path = path
+            image_editor = ImageEditor(args)
+            image_editor.sample_image()
+    else:
+        image_editor = ImageEditor(args)
+        image_editor.sample_image()

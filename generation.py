@@ -3,6 +3,8 @@ import subprocess
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
+
+
 # Model Used: https://github.com/dsaragih/diffuse-gen?tab=readme-ov-file
 
 # Paths setup
@@ -19,6 +21,7 @@ image_counts = {
     'Nodule': 1633,
     'Pneumothorax': 1302
 }
+
 max_images = max(image_counts.values())
 
 def generate_images_for_disease(disease, num_to_generate):
