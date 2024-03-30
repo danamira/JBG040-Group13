@@ -21,6 +21,14 @@ from pathlib import Path
 from typing import List
 import json
 from model import getModel
+import random
+import numpy as np
+
+# initialize seeds
+torch.manual_seed(42)
+random.seed(42)
+np.random.seed(42)
+torch.use_deterministic_algorithms(mode=True, warn_only=True)
 
 # retrieve current time to label artifacts
 now = datetime.now()
@@ -28,44 +36,45 @@ model_file_name = f"model_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}
 model_file_r_path = f"model_weights/{model_file_name}.txt"
 
 # Experiment Description
-architecture = "add configuration"
-experiment_type = "add configuration"
-optimizer_used = "Adam"  # Change depending on model used
-early_stopping = "add configuration"
-epochs = "add configuration"
-layers = "add configuration"
-convolutional_kernel = "add configuration"
-max_pooling_kernel = "add configuration"
-num_features_in_first_level = "add configuration"
-feature_decrement_factor = "add configuration"
-linear_layer = "add configuration"
-comment = "add configuration"
+architecture = "resnet"
+experiment_type = "seeds"
+optimizer_used = "SGD"  # Change depending on model used
+early_stopping = "false"
+epochs = "10"
+# layers = "4"
+# convolutional_kernel = "3"
+# max_pooling_kernel = "[2,2,2,2]"
+# num_features_in_first_level = "128"
+# feature_decrement_factor = "0.5"
+# linear_layer = "576"
+comment = "layer_list=[1,3,4,2,1], model trained with seed 42"
 
 # Aggregation of description
 data = {"model": model_file_name,
         "optimizer": optimizer_used,
         "early_stopping": early_stopping,
         "epochs": epochs,
-        "layers": layers,
-        "convolutional_kernel": convolutional_kernel,
-        "max_pooling_kernel": max_pooling_kernel,
-        "num_features_in_first_level": num_features_in_first_level,
-        "feature_decrement_factor": feature_decrement_factor,
-        "linear_layer": linear_layer,
+        # "layers": layers,
+        # "convolutional_kernel": convolutional_kernel,
+        # "max_pooling_kernel": max_pooling_kernel,
+        # "num_features_in_first_level": num_features_in_first_level,
+        # "feature_decrement_factor": feature_decrement_factor,
+        # "linear_layer": linear_layer,
         "comments": comment}
 
 # ------------------------------------------------------------
 
 def save_experiment(experiment_type_, data_, architecture_):
     path = f"results/{architecture_}/{experiment_type_}"
-    path_file = f'{path}/experiment_results.json'
+    path_file = f'{path}/experiment_results_seeds.json'
     json_data = []
     if not os.path.exists(path):
         os.makedirs(path)
         print("The new directory is created!")
 
         with open(path_file, "w") as write_file:
-            json.dump([data_], write_file, indent=4)
+            json_data.append(data_)
+            json.dump(json_data, write_file, indent=4)
 
     else:
         with open(path_file, 'r') as file:
@@ -110,6 +119,10 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
         print("@@@ CUDA device found, enabling CUDA training...")
         device = "cuda"
         model.to(device)
+        # initialize seeds for CUDA
+        torch.cuda.manual_seed_all(42)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
         # Creating a summary of our model and its layers:
         summary(model, (1, 128, 128), device=device)
 
