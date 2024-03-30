@@ -1,14 +1,6 @@
 import numpy as np
 
 
-cm = np.array([[46, 25, 11, 9, 44, 20],
-               [21, 65, 7, 6, 21, 19],
-               [29, 38, 29, 12, 46, 35],
-               [54, 40, 36, 34, 127, 62],
-               [11, 9, 6, 9, 40, 15],
-               [7, 13, 3, 4, 17, 30]])
-
-
 def min_max_normalize(matrix):
     min_val = np.min(matrix)
     max_val = np.max(matrix)
