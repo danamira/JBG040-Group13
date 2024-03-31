@@ -216,7 +216,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--balanced_batches",
         help="whether to balance batches for class labels",
-        default=True,
+        default=False,
         type=bool,
     )
     parser.add_argument("--weight_decay", help="specifies the lambda value for L2 regularisation", default=0.1,

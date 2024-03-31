@@ -10,7 +10,7 @@ import sys
 import json
 
 # ----------------------------------------------------------
-model_file_name = "model_03_27_11_02.txt"
+model_file_name = "model_03_31_16_02.txt"
 # ----------------------------------------------------------
 
 def load_model_from_path(path_to_model: str):
@@ -70,12 +70,12 @@ def calculate_metrics():
         print(f'Batch number: {batch}')
         true_vals = \
             prepare_dataset_for_forward_pass(
-                r"data",
+                r"dc1/data",
                 (batch * 1000, (batch + 1) * 1000)
             )[1]
         predictions = use_model(
-            r"model_weights/{}".format(model_file_name),
-            r"data",
+            r"dc1/model_weights/{}".format(model_file_name),
+            r"dc1/data",
             (batch * 1000, (batch + 1) * 1000)
 
         )
@@ -87,12 +87,12 @@ def calculate_metrics():
     print('Batch number: 8')
     true_vals = \
         prepare_dataset_for_forward_pass(
-            r"data",
+            r"dc1/data",
             (8000, 8420)
         )[1]
     predictions = use_model(
-        r"model_weights/{}".format(model_file_name),
-        r"data",
+        r"dc1/model_weights/{}".format(model_file_name),
+        r"dc1/data",
         (8000, 8420)
     )
     for i in range(420):

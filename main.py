@@ -24,6 +24,14 @@ model_file_name = "model_03_18_21_40.txt"
 trainData = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"))
 modelPath = f"dc1/model_weights/{model_file_name}.txt"
 
+imagesGroups = {i:[] for i in range(6)}
+
+for x in trainData:
+    imagesGroups[x[1]]=x[0]
+
+
+
+
 image_path = 'input/image.jpg'
 image = Image.open(image_path)
 
