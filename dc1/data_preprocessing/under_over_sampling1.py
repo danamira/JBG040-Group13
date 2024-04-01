@@ -1,4 +1,5 @@
 from imblearn.under_sampling import RandomUnderSampler
+from imblearn.over_sampling import RandomOverSampler
 from imblearn.over_sampling import SMOTE
 from imblearn.combine import SMOTEENN, SMOTETomek
 import numpy as np
@@ -19,16 +20,7 @@ def undersampling(y_train, X_train):
 
 def oversampling(y_train, X_train):
     """Randomly removes elements from the majority classes."""
-    rus = RandomUnderSampler(random_state=42, sampling_strategy='not majority')
-    rus.fit_resample(X_train[:, :, :, 0][:, :, 0], y_train)
-    X_resampled = X_train[rus.sample_indices_]
-    y_resampled = y_train[rus.sample_indices_]
-    return X_resampled, y_resampled
-
-
-def resample_all(y_train, X_train):
-    """Randomly removes elements from the majority classes."""
-    rus = RandomUnderSampler(random_state=42, sampling_strategy='all')
+    rus = RandomOverSampler(random_state=42, sampling_strategy='not majority')
     rus.fit_resample(X_train[:, :, :, 0][:, :, 0], y_train)
     X_resampled = X_train[rus.sample_indices_]
     y_resampled = y_train[rus.sample_indices_]
