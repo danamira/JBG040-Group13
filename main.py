@@ -40,16 +40,18 @@ transformations = transforms.Compose([
     transforms.Resize((128, 128)),  # Replace desired_height and desired_width with your values
     transforms.Grayscale(num_output_channels=1),  # Convert image to grayscale
     transforms.ToTensor(),  # Convert to tensor
+    # new stuff=========================
+    transforms.Normalize(mean=[0.5], std=[0.5])  # Normalize
+    # ====================================
 ])
 
-model = ResNet(Bottleneck, layer_list=[1, 3, 4, 2, 1], num_classes=6, num_channels=1)
+model = ResNet(Bottleneck, layer_list=[1, 3, 4, 2, 1, 1], num_classes=6, num_channels=1)
 model.load_state_dict(torch.load(modelPath, map_location=torch.device('cpu')))
 image_transformed = transformations(image)
 
 model.eval()
 with torch.no_grad():
     outputs = (model(image_transformed.unsqueeze(0)))
-
 outputs = F.softmax(outputs, dim=-1).tolist()[0]
 
 diseases = ['Atelectasis', 'Effusion', 'Infiltration', 'No finding', 'Nodule', 'Pneumothorax']

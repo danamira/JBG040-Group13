@@ -104,7 +104,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     loss_function = nn.CrossEntropyLoss()
 
     # Initialize early stopping
-    early_stopper = EarlyStopper(patience=3, min_delta=10,manual=True)
+    early_stopper = EarlyStopper(patience=3, min_delta=10)
 
     # fetch epoch and batch count from arguments
     n_epochs = args.nb_epochs
@@ -141,6 +141,8 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     mean_losses_test: List[torch.Tensor] = []
 
     earlyStopped = False
+    best_test_loss = float('inf')
+    best_model_state = None
 
     for e in range(n_epochs):
         if activeloop:
@@ -168,6 +170,11 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
                 print('Early stopping')
                 break
 
+            # Save the best model state
+            if mean_loss < best_test_loss:
+                best_test_loss = mean_loss
+                best_model_state = model.state_dict()
+
             #  Plotting during training
             plotext.clf()
             plotext.scatter(mean_losses_train, label="train")
@@ -182,12 +189,21 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     if not Path("model_weights/").exists():
         os.mkdir(Path("model_weights/"))
 
-    # Saving the model
-    torch.save(model.state_dict(), f'{model_file_r_path}')
+    # # Saving the model
+    # torch.save(model.state_dict(), f'{model_file_r_path}')
+    # try:
+    #     save_experiment(experiment_type, data, architecture)
+    # except:
+    #     print('!! Experiment not saved. Please record your experiment manually. !!')
+
+    # Saving the best model state
+    if best_model_state:
+        torch.save(best_model_state, f'{model_file_r_path}')
     try:
         save_experiment(experiment_type, data, architecture)
     except:
         print('!! Experiment not saved. Please record your experiment manually. !!')
+# =========================================
 
     # Create plot of losses
     figure(figsize=(9, 10), dpi=80)

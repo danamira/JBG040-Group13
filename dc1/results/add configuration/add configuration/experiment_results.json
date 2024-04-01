@@ -11,5 +11,18 @@
         "feature_decrement_factor": "add configuration",
         "linear_layer": "add configuration",
         "comments": "add configuration"
+    },
+    {
+        "model": "model_03_31_17_16",
+        "optimizer": "Adam",
+        "early_stopping": "add configuration",
+        "epochs": "add configuration",
+        "layers": "add configuration",
+        "convolutional_kernel": "add configuration",
+        "max_pooling_kernel": "add configuration",
+        "num_features_in_first_level": "add configuration",
+        "feature_decrement_factor": "add configuration",
+        "linear_layer": "add configuration",
+        "comments": "add configuration"
     }
 ]
