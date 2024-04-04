@@ -105,7 +105,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     loss_function = nn.CrossEntropyLoss()
 
     # Initialize early stopping
-    early_stopper = EarlyStopper(patience=3, min_delta=10,manual=True)
+    early_stopper = EarlyStopper(patience=3, min_delta=10, manual=True)
 
     # fetch epoch and batch count from arguments
     n_epochs = args.nb_epochs
@@ -169,7 +169,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
 
             # Early stopping
             if early_stopper.early_stop(mean_loss):
-                earlyStopped=True
+                earlyStopped = True
                 print('Early stopping')
                 break
 
@@ -208,7 +208,6 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
 
         # save plot of losses
         fig.savefig(Path("artifacts") / f"session_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}.png")
-
 
 
 if __name__ == "__main__":
