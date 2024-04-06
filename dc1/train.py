@@ -109,7 +109,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     loss_function = nn.CrossEntropyLoss()
 
     # Initialize early stopping
-    early_stopper = EarlyStopper(patience=3, min_delta=10, manual=True)
+    early_stopper = EarlyStopper(patience=3, min_delta=10, manual=False)
 
     # fetch epoch and batch count from arguments
     n_epochs = args.nb_epochs
@@ -152,8 +152,6 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     earlyStopped = False
 
     for e in range(n_epochs):
-        if(e!=0):
-            continue
         if activeloop:
             # Training:
             losses = train_model(model, train_sampler, optimizer, loss_function, device)
