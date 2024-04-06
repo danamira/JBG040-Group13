@@ -152,8 +152,6 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     earlyStopped = False
 
     for e in range(n_epochs):
-        if(e!=0):
-            continue
         if activeloop:
             # Training:
             losses = train_model(model, train_sampler, optimizer, loss_function, device)
@@ -190,7 +188,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
             plotext.show()
 
     # check if model_weights/ subdir exists
-    if not Path("dc1/model_weights/").exists():
+    if not Path("model_weights/").exists():
         os.mkdir(os.path.join(Path.cwd(),'model_weights/'))
 
     # Saving the model
