@@ -5,22 +5,34 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-data = pd.read_csv('../data/TruePred_.csv')
+# data = pd.read_csv('../data/TruePred_.csv')
 
 class_labels = ['Atelectasis', 'Effusion', 'Infiltration', 'No finding', 'Nodule', 'Pneumothorax']
 
-true = data['true']
-pred = data['pred']
+# true = data['true']
+# pred = data['pred']
 
-cm = confusion_matrix(true, pred)
+# cm = confusion_matrix(true, pred)
+
+cm = np.array([
+    [34, 25, 11, 54, 19, 12],
+    [14, 65, 16, 23, 13, 8],
+    [18, 35, 43, 66, 20, 7],
+    [48, 35, 46, 142, 60, 22],
+    [5, 6, 10, 44, 20, 5],
+    [6, 9, 8, 20, 5, 26]
+])
 
 plt.figure(figsize=(12, 10))
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", annot_kws={"size": 16}, xticklabels=class_labels, yticklabels=class_labels, cbar_kws={"label": "Scale"})
-plt.xlabel('Predicted Label')
-plt.ylabel('True Label')
-plt.title('Confusion Matrix', weight='bold', size=16)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", annot_kws={"size": 16}, xticklabels=class_labels,
+            yticklabels=class_labels, cbar_kws={"label": "Scale"})
+plt.xlabel('Predicted Label', size=15, weight='bold')
+plt.ylabel('True Label', size=15, weight='bold')
+plt.xticks(fontsize=15)
+plt.yticks(fontsize=15)
+plt.title('Confusion Matrix for M5', weight='bold', size=20)
+# plt.savefig('Confusion Matrix for chosen model')
 plt.show();
-
 
 # Cost Matrix
 
@@ -37,7 +49,6 @@ normalized_matrix = cm / cm.sum(axis=1, keepdims=True)
 
 # Cmoputing the finalized matrix where we multiply it with the weights
 weighted_conf_matrix = normalized_matrix * severity_weights
-
 
 # Computing precision and recall from cm
 precision = cm.diagonal() / cm.sum(axis=0)
@@ -60,25 +71,23 @@ f1 = 2 * (precision * recall) / (precision + recall)
 # Compute F1 score for each class after adding weights
 f1_weight = 2 * (precision_weight * recall_weight) / (precision_weight + recall_weight)
 
-
 # Compute micro-average F1 score
-micro_f1 = f1_score(true, pred, average='micro')
+# micro_f1 = f1_score(true, pred, average='micro')
 
 # Compute micro-average F1 score with weights
-micro_f1_weight = np.nan_to_num(f1_weight).mean()
+# micro_f1_weight = np.nan_to_num(f1_weight).mean()
 
 # Compute macro-average F1 score
-
-macro_f1 = f1_score(true, pred, average='macro')
+# macro_f1 = f1_score(true, pred, average='macro')
 
 # Compute macro-average F1 score with weights
-macro_f1_weight = np.average(f1_weight, weights=np.unique(true, return_counts=True)[1])
+# macro_f1_weight = np.average(f1_weight, weights=np.unique(true, return_counts=True)[1])
 
 print("Class-wise F1 Score:", f1)
-print("Micro-average F1 Score:", micro_f1)
-print("Macro-average F1 Score:", macro_f1)
+# print("Micro-average F1 Score:", micro_f1)
+# print("Macro-average F1 Score:", macro_f1)
 
 
 print("Class-wise F1 Score with weights added:", f1_weight)
-print("Micro-average F1 Score with weights added:", micro_f1_weight)
-print("Macro-average F1 Score with weights added:", macro_f1_weight)
+# print("Micro-average F1 Score with weights added:", micro_f1_weight)
+# print("Macro-average F1 Score with weights added:", macro_f1_weight)
