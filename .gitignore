@@ -7,3 +7,5 @@ artifacts/*
 dc1/__pycache__/.
 dc1/__pycache__/*
 dc1/__pycache__/
+.idea
+.ipynb_checkpoints

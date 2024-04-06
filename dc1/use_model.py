@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from net import Net
-from image_dataset import ImageDataset, Path
+from dc1.image_dataset import ImageDataset, Path
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import torch.nn as nn
 import os

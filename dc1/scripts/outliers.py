@@ -15,10 +15,10 @@ import cv2
 # In[ ]:
 
 # Import the data
-X_train = np.load('dc1/data/X_train.npy')
-X_test = np.load('dc1/data/X_test.npy')
-y_train = np.load('dc1//data/Y_train.npy')
-y_test = np.load('dc1/data/Y_test.npy')
+X_train = np.load('../data/X_train.npy')
+X_test = np.load('../data/X_test.npy')
+y_train = np.load('../data/Y_train.npy')
+y_test = np.load('../data/Y_test.npy')
 
 
 def show_image(image):
@@ -57,24 +57,24 @@ def find_outliers(data):
 
 
 def remove_outliers_save(data, outliers_list, filename):
-    np.save(f'dc1/data/preprocessed/remove_outliers/{filename}.npy', np.delete(data, outliers_list, axis=0))
+    np.save(f'../data/preprocessed/remove_outliers/{filename}.npy', np.delete(data, outliers_list, axis=0))
 
 
 # ----------------------- #
 # Run the functions above #
 # ----------------------- #
 cwd = os.getcwd()
-if path.exists(path.join(cwd ,"dc1/data/preprocessed/remove_outliers/")):
+if path.exists(path.join(cwd ,"../data/preprocessed/remove_outliers/")):
         print("Preprocessed data directory exists, files may be overwritten!")
 
 else:
         print(cwd)
         try:
-            if not path.exists(path.join(cwd , "dc1/data/preprocessed/")):
-                os.mkdir(path.join(cwd, "dc1/data/preprocessed/"))
-            os.mkdir(path.join(cwd, "dc1/data/preprocessed/remove_outliers/"))
+            if not path.exists(path.join(cwd , "../data/preprocessed/")):
+                os.mkdir(path.join(cwd, "../data/preprocessed/"))
+            os.mkdir(path.join(cwd, "../data/preprocessed/remove_outliers/"))
         except:
-            quit("Could not create the correct directory for pre-processed data. Please make directory 'dc1/data/preprocessed/remove_outliers' relative to the project root and run this script again.")
+            quit("Could not create the correct directory for pre-processed data. Please make directory `dc1/data/preprocessed/remove_outliers' relative to the project root and run this script again.")
 
 
 train_outliers = find_outliers(X_train)
