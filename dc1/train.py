@@ -152,6 +152,8 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     earlyStopped = False
 
     for e in range(n_epochs):
+        if(e!=0):
+            continue
         if activeloop:
             # Training:
             losses = train_model(model, train_sampler, optimizer, loss_function, device)
@@ -189,7 +191,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
 
     # check if model_weights/ subdir exists
     if not Path("dc1/model_weights/").exists():
-        os.mkdir(os.path.join(Path.cwd(),'dc1/model_weights/'))
+        os.mkdir(os.path.join(Path.cwd(),'model_weights/'))
 
     # Saving the model
     torch.save(model.state_dict(), f'{model_file_r_path}')
