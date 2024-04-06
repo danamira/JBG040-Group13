@@ -1,8 +1,8 @@
 # Custom imports
-from dc1.batch_sampler import BatchSampler
-from dc1.image_dataset import ImageDataset
-from dc1.net import Net, Net_experiments, EarlyStopper
-from dc1.train_test import train_model, test_model
+from batch_sampler import BatchSampler
+from image_dataset import ImageDataset
+from net import Net, Net_experiments, EarlyStopper
+from train_test import train_model, test_model
 
 # Torch imports
 import torch
@@ -34,7 +34,7 @@ torch.use_deterministic_algorithms(mode=True, warn_only=True)
 # retrieve current time to label artifacts
 now = datetime.now()
 model_file_name = f"model_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}"
-model_file_r_path = f"model_weights/{model_file_name}.txt"
+model_file_r_path = f"dc1/model_weights/{model_file_name}.txt"
 
 # Experiment Description
 architecture = "resnet"
@@ -90,9 +90,9 @@ def save_experiment(experiment_type_, data_, architecture_):
 
 def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     # Load the train and test data set
-    train_dataset = ImageDataset(Path("data/X_train.npy"), Path("data/Y_train.npy"), sampling_method=sampling_method,
+    train_dataset = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"), sampling_method=sampling_method,
                                  train=True)
-    test_dataset = ImageDataset(Path("data/X_test.npy"), Path("data/Y_test.npy"), sampling_method=sampling_method,
+    test_dataset = ImageDataset(Path("dc1/data/X_test.npy"), Path("dc1/data/Y_test.npy"), sampling_method=sampling_method,
                                 train=False)
     # Get the value of lambda from arguments
     weight_decay = args.weight_decay
@@ -152,6 +152,8 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
     earlyStopped = False
 
     for e in range(n_epochs):
+        if(e!=0):
+            continue
         if activeloop:
             # Training:
             losses = train_model(model, train_sampler, optimizer, loss_function, device)
@@ -188,8 +190,8 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
             plotext.show()
 
     # check if model_weights/ subdir exists
-    if not Path("model_weights/").exists():
-        os.mkdir(Path("model_weights/"))
+    if not Path("dc1/model_weights/").exists():
+        os.mkdir(os.path.join(Path.cwd(),'dc1/model_weights/'))
 
     # Saving the model
     torch.save(model.state_dict(), f'{model_file_r_path}')
@@ -208,7 +210,7 @@ def main(args: argparse.Namespace, activeloop: bool = True) -> None:
         fig.legend()
         # Check if /artifacts/ subdir exists
         if not Path("artifacts/").exists():
-            os.mkdir(Path("artifacts/"))
+            os.mkdir(os.path.join(Path.cwd(),"artifacts/"))
 
         # save plot of losses
         fig.savefig(Path("artifacts") / f"session_{now.month:02}_{now.day:02}_{now.hour}_{now.minute:02}.png")

@@ -1,4 +1,4 @@
-from dc1.image_dataset import ImageDataset
+# from dc1.image_dataset import ImageDataset
 from pathlib import Path
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -9,11 +9,11 @@ from dc1.resnet import ResNet, Bottleneck
 import torch.nn.functional as F
 
 # ----------------------------------------------------------
-model_file_name = "model_03_18_21_40.txt"
+model_file_name = "model_04_06_15_02.txt"
 # ----------------------------------------------------------
 
-trainData = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"))
-modelPath = f"dc1/model_weights/{model_file_name}.txt"
+# trainData = ImageDataset(Path("dc1/data/X_train.npy"), Path("dc1/data/Y_train.npy"))
+modelPath = f"dc1/model_weights/{model_file_name}"
 
 image_path = 'input/image.jpg'
 image = Image.open(image_path)

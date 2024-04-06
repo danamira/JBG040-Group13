@@ -1,0 +1,9 @@
+[
+    {
+        "model": "model_04_06_15_02",
+        "optimizer": "SGD",
+        "early_stopping": "false",
+        "epochs": "10",
+        "comments": "layer_list=[1,3,4,2,1], model trained with seed 42"
+    }
+]

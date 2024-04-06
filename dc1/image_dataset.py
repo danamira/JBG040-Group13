@@ -7,7 +7,7 @@ from typing import Tuple
 from pathlib import Path
 import os
 
-from dc1.configurations import sampling_methods
+from configurations import sampling_methods
 
 
 class ImageDataset:
@@ -69,25 +69,25 @@ def load_numpy_arr_from_url(url: str) -> np.ndarray:
 
 if __name__ == "__main__":
     cwd = os.getcwd()
-    if path.exists(path.join(cwd + "data/")):
+    if path.exists(path.join(cwd + "dc1/data/")):
         print("Data directory exists, files may be overwritten!")
     else:
-        os.mkdir(path.join(cwd, "data/"))
+        os.mkdir(path.join(cwd, "dc1/data/"))
     ### Load labels
     train_y = load_numpy_arr_from_url(
         url="https://surfdrive.surf.nl/files/index.php/s/i6MvQ8nqoiQ9Tci/download"
     )
-    np.save("data/Y_train.npy", train_y)
+    np.save("dc1/data/Y_train.npy", train_y)
     test_y = load_numpy_arr_from_url(
         url="https://surfdrive.surf.nl/files/index.php/s/wLXiOjVAW4AWlXY/download"
     )
-    np.save("data/Y_test.npy", test_y)
+    np.save("dc1/data/Y_test.npy", test_y)
     ### Load data
     train_x = load_numpy_arr_from_url(
         url="https://surfdrive.surf.nl/files/index.php/s/4rwSf9SYO1ydGtK/download"
     )
-    np.save("data/X_train.npy", train_x)
+    np.save("dc1/data/X_train.npy", train_x)
     test_x = load_numpy_arr_from_url(
         url="https://surfdrive.surf.nl/files/index.php/s/dvY2LpvFo6dHef0/download"
     )
-    np.save("data/X_test.npy", test_x)
+    np.save("dc1/data/X_test.npy", test_x)

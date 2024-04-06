@@ -3,6 +3,9 @@ This repository contains the code for the TU/e course JBG040 Data Challenge 1.
 Please read this document carefully as it has been filled out with important information.
 Note: The "Code structure" section has been modified compared to the original README.md.
 
+
+
+
 ## Code structure
 The code is structured into multiple files, based on their functionality. 
 Each `.py` file contains a different part of the code. 
@@ -31,22 +34,40 @@ Each `.py` file contains a different part of the code.
 Note that the Neural Network structure is defined in the `net.py` file, so if you want to modify the network itself, you can do so in that script.
 The loss functions and optimizers are all defined in `/dc1/train.py`.
 
-## GitHub setup instructions
-1. Click the green *<> Code* button at the upper right corner of the repository.
-2. Make sure that the tab *Local* is selected and click *Download ZIP*.
-3. Go to the GitHub homepage and create a new repository.
-4. Make sure that the repository is set to **private** and give it the name **JBG040-GroupXX**, where XX is your group number.
-5. Press *uploading an existing file* and upload the extracted files from Data-Challenge-1-template-main.zip to your repository. Note that for the initial commit you should commit directly to the main branch
-6. Invite your **group members, tutor and teachers** by going to *Settings > Collaborators > Add people*.
-7. Open PyCharm and make sure that your GitHub account is linked.*
-8. In the welcome screen of PyCharm, click *Get from VCs > GitHub* and select your repository and click on clone.
-9. After the repository is cloned, you can now create a virtual environment using the requirements.txt.
-
-*For information on how to install PyCharm and link Github to your PyCharm, we refer to the additional resources page on Canvas.
-
-
 ## Environment setup instructions
-We recommend to set up a virtual Python environment to install the package and its dependencies. To install the package, we recommend to execute `pip install -r requirements.txt.` in the command line. This will install it in editable mode, meaning there is no need to reinstall after making changes. If you are using PyCharm, it should offer you the option to create a virtual environment from the requirements file on startup. Note that also in this case, it will still be necessary to run the pip command described above.
+The requirements to run the code contained in this repository are listed in the file `requiremente.txt`. Please run `pip install -r requirements.txt` from the repository root to install them all. We strongly suggest using a virtual Python environment (such as [Anaconda](https://www.anaconda.com/)) in order to setup the environment.
+
+
+## How to train and run the model
+> 💡 Please note that unlike the template model, `main.py` is not responsible for training the model. Follow the below instructions to initiate the training process.
+
+### Fetching data
+In order to start the training process, the raw data must be grabbed from the Internet.
+To do this, you can run the file `image_dataset.py` from the project root.
+
+This can be achieved by running the following in your terminal **from your repository root directory**: `python dc1/image_dataset.py`
+
+> ℹ️ If the data is placed correctly, the directory `/data` must be placed in `dc1/`. If this is not the case for you, feel free to simply move your downloaded data there instead of running again form the correct root.
+
+
+### Preprocessing
+The script `outliers.py` in `dc1/scripts` is responsible for generating a pre-processed dataset with outliers removes and save it to `dc1/data/preprocessed/remove_outliers/`.
+
+▶️ Again, run `python dc1/scripts/outliers.py` in your terminal from root directory.
+
+Upon successful execution of this command you should have `preprocessed/remove_outliers/` as a subdirectory of your `dc1/data` with four `.npy` files.
+
+
+### Training
+▶️ Run `python dc1/train.py` from the repository root in order to initiate the training process. The code will recognise your hardware capabilities and starts training.
+
+### Using the model and predicting diseases
+Once training is done, a file containing the weights and biases will be generated in `dc1/model_weights`.
+Grab the name of that file and specify it by editing `main.py` line 12. 
+
+▶️ Run `python main.py` from your root directory and you'll be able to generate predictions for images placed in `/input` directory.
+
+
 
 ## Submission instructions
 After each sprint, you are expected to submit your code. This will **not** be done in Canvas, instead you will be creating a release of your current repository. 
