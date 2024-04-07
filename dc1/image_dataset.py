@@ -68,7 +68,10 @@ def load_numpy_arr_from_url(url: str) -> np.ndarray:
 
 
 if __name__ == "__main__":
+    dirOfThisFile=(os.path.dirname(os.path.realpath(__file__)))
+    os.chdir(dirOfThisFile)
     cwd = os.getcwd()
+    print(cwd)
     if path.exists(path.join(cwd , "data/")):
         print("Data directory exists, files may be overwritten!")
     else:

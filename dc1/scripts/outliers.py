@@ -12,7 +12,11 @@ import cv2
 
 # print(Path.cwd())
 
-# In[ ]:
+dirOfThisFile=(os.path.dirname(os.path.realpath(__file__)))
+os.chdir(dirOfThisFile)
+cwd = os.getcwd()
+# print(cwd)
+
 
 # Import the data
 X_train = np.load('../data/X_train.npy')
@@ -63,12 +67,14 @@ def remove_outliers_save(data, outliers_list, filename):
 # ----------------------- #
 # Run the functions above #
 # ----------------------- #
-cwd = os.getcwd()
+
+
+
 if path.exists(path.join(cwd ,"../data/preprocessed/remove_outliers/")):
         print("Preprocessed data directory exists, files may be overwritten!")
 
 else:
-        print(cwd)
+        # print(cwd)
         try:
             if not path.exists(path.join(cwd , "../data/preprocessed/")):
                 os.mkdir(path.join(cwd, "../data/preprocessed/"))

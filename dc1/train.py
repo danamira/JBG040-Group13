@@ -1,7 +1,8 @@
+import os
 # Custom imports
 from dc1.batch_sampler import BatchSampler
 from dc1.image_dataset import ImageDataset
-from dc1.net import Net, Net_experiments, EarlyStopper
+from dc1.net import Net, EarlyStopper
 from dc1.train_test import train_model, test_model
 
 # Torch imports
@@ -13,7 +14,6 @@ from torchsummary import summary  # type: ignore
 # Other imports
 import matplotlib.pyplot as plt  # type: ignore
 from matplotlib.pyplot import figure
-import os
 import argparse
 import plotext  # type: ignore
 from datetime import datetime
@@ -24,6 +24,7 @@ from model import getModel
 import random
 from configurations import sampling_method
 import numpy as np
+
 
 # initialize seeds
 torch.manual_seed(42)
