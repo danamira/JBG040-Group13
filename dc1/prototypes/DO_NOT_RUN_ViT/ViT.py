@@ -9,7 +9,6 @@ from collections import OrderedDict
 import math
 
 from dc1.image_dataset import ImageDataset, Path
-from dc1.use_model import save_predictions_in_csv
 
 
 class ModifiedViT(nn.Module):
@@ -202,7 +201,7 @@ class IEncoder(nn.Module):
         for encoder_block in self.layers:
             x = encoder_block(self.dropout(x))
             # print(f"x shape encoder_block pass: {x.shape}")
-            x = torch.cat((x, full_image_embedding),1)
+            x = torch.cat((x, full_image_embedding), 1)
             # print(f"x shape concat with full embedding: {x.shape}")
         return self.ln(x)
 
