@@ -3,7 +3,7 @@ This repository contains the code for the TU/e course JBG040 Data Challenge 1.
 Please read this document carefully as it has been filled out with important information.
 Note: The "Code structure" section has been modified compared to the original README.md.
 
-
+![Preview of the predictions provided](.github/preview.png "JBG040 Project")
 
 
 ## Code structure
@@ -42,6 +42,12 @@ and _choose the repository root as your working directory_. This is important in
 
 
 
+Once the environment is set to go, install all the requirements listed in `requirements.txt`. This can be done by `pip install -r requirements.txt`.
+
+> 💡 If you're using a virtual environment, make sure to do the pip installations in terminal from your environment.
+
+
+
 
 ## How to train and run the model
 > 💡 Please note that unlike the template model, `main.py` is not responsible for training the model. Follow the below instructions to initiate the training process.
@@ -64,9 +70,13 @@ Upon a successful completion of training, a text file will be created in `dc1/mo
 
 
 ### Using the model and predicting diseases
-Once training is done, a file containing the weights and biases will be generated in `dc1/model_weights`.
-Grab the name of that file and specify it by editing `main.py` line 12. 
+Once the training is done, run main.py (placed in the root directory). You can place your input image in the `input/` directory.
 
-▶️ Run `main.py` from your root directory and you'll be able to generate predictions for images placed in `/input` directory.
+The script will ask you for the name of your input image. Pass the file name (including its extension) to the program. For instance `image.jpg`.
 
+Then you'll be asked to provide the name of the model weights file obtained from training the model. This file is place in `dc1/model_weights`.
+
+Pass the file name (including the extension but without directories etc.). For example: `model_04_06_15_02.txt`.
+
+By passing these parameters the model will the pass the image forward into the neural network and provide you with predictions for each class + a CAM image specifying the emphasis of model on different areas of the image.
 

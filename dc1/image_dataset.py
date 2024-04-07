@@ -7,7 +7,7 @@ from typing import Tuple
 from pathlib import Path
 import os
 
-from configurations import sampling_methods
+from dc1.configurations import sampling_methods
 
 
 class ImageDataset:

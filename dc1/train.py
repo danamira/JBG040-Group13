@@ -2,7 +2,7 @@ import os
 # Custom imports
 from dc1.batch_sampler import BatchSampler
 from dc1.image_dataset import ImageDataset
-from dc1.net import Net, EarlyStopper
+from net import EarlyStopper
 from dc1.train_test import train_model, test_model
 
 # Torch imports
@@ -22,9 +22,13 @@ from typing import List
 import json
 from model import getModel
 import random
-from configurations import sampling_method
+from dc1.configurations import sampling_method
 import numpy as np
 
+dirOfThisFile=(os.path.dirname(os.path.realpath(__file__)))
+os.chdir(dirOfThisFile)
+cwd = os.getcwd()
+print(cwd)
 
 # initialize seeds
 torch.manual_seed(42)

@@ -1,4 +1,4 @@
-from data_preprocessing.under_over_sampling1 import no_sampling, undersampling, oversampling, \
+from dc1.data_preprocessing.under_over_sampling1 import no_sampling, undersampling, oversampling, \
     smote_sampling
 
 # Sampling method
