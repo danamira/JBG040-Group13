@@ -1,4 +1,4 @@
-# Data-Challenge-1
+# JBG040 | Data Challenge 1
 This repository contains the code for the TU/e course JBG040 Data Challenge 1.
 Please read this document carefully as it has been filled out with important information.
 Note: The "Code structure" section has been modified compared to the original README.md.
