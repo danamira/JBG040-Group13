@@ -29,3 +29,4 @@ pandas~=2.2.1
 setuptools~=69.0.3
 imbalanced-learn==0.12.2
 opencv-python
+grad-cam == 1.5.0
