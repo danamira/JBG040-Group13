@@ -48,28 +48,27 @@ Once the environment is set to go, install all the requirements listed in `requi
 
 
 
-
 ## How to train and run the model
-> 💻 Please note that unlike the template model, `main.py` is not responsible for training the model. Follow the below instructions to initiate the training process.
+> 🚨 Please note that unlike the template model, `main.py` is not responsible for training the model. Follow the below instructions to initiate the training process.
 
-### Fetching data
+### 1. Fetching data
 In order to start the training process, the raw data must be grabbed from the Internet.
 To do this, you can run the file `image_dataset.py` from the project root.
 
 
-### Preprocessing
+### 2. Preprocessing
 Run the Python file `dc1/cripts/outliers.py` in order to pre-process the data.
 This will create the corresponding subdirectories `preprocessed/remove_outliers` under `dc1/data` containing four new `.npy` datasets.
 
 Make sure the preprocessed data is placed in the correct location (as described above) as this is necessary to run the training later on.
 
-### Training
+### 3. Training
 Run `dc1/train.py` in order to initiate training the model weights. The training will be done in ten epochs.
 Upon a successful completion of training, a text file will be created in `dc1/model_weights` which includes the weights and biases for the neural network.
 
 
 
-### Using the model and predicting diseases
+### 4. Using the model and predicting diseases
 Once the training is done, run main.py (placed in the root directory). You can place your input image in the `input/` directory.
 
 The script will ask you for the name of your input image. Pass the file name (including its extension) to the program. For instance `image.jpg`.
