@@ -50,7 +50,7 @@ Once the environment is set to go, install all the requirements listed in `requi
 
 
 ## How to train and run the model
-> 💡 Please note that unlike the template model, `main.py` is not responsible for training the model. Follow the below instructions to initiate the training process.
+> 💻 Please note that unlike the template model, `main.py` is not responsible for training the model. Follow the below instructions to initiate the training process.
 
 ### Fetching data
 In order to start the training process, the raw data must be grabbed from the Internet.
