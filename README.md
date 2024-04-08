@@ -10,7 +10,7 @@ Note: The "Code structure" section has been modified compared to the original RE
 The code is structured into multiple files, based on their functionality. 
 Each `.py` file contains a different part of the code. 
 
-- To download the data: run the `ImageDataset.py` file. The script will create a directory `/dc1/data/` and download the training and test data with corresponding labels to this directory. 
+- To download the data: run the `image_dataset.py` file. The script will create a directory `/dc1/data/` and download the training and test data with corresponding labels to this directory. 
     - You will only have to run this script once usually, at the beginning of your project.
 
 - To run the whole training/evaluation pipeline: run `/dc1/train.py`. This script is prepared to do the followings:
